@@ -57,6 +57,9 @@ class SEAMM_Calculator(ASE_Calculator):
     calculator.
     """
 
+    implemented_properties = ["energy", "forces"]
+    nolabel = True
+
     def __init__(self, step, **kwargs):
         """
         Parameters
