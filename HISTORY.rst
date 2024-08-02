@@ -1,6 +1,6 @@
 =======
 History
 =======
-2024.8.1 -- Initial version
+2024.8.2 -- Initial version
 
 

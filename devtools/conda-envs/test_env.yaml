@@ -3,21 +3,24 @@ channels:
 
   - defaults
 dependencies:
-    # Base depends
+  # Base depends
   - python
   - pip
 
-    # Testing
+  # Testing
   - black
   - codecov
   - flake8
   - pytest
   - pytest-cov
 
-    # Pip-only installs
+  # Documentation
+  - pydata-sphinx-theme
+  - sphinx-design
+
+  # Pip-only installs
   - pip:
       - ase
       # Documentation
       - sphinx-copybutton
-      - sphinx-design
 
