@@ -56,20 +56,20 @@ clean-test: ## remove test and coverage artifacts
 	find . -name '.pytype' -exec rm -fr {} +
 
 lint: ## check style with black and flake8
-	black --extend-exclude '_version.py' --check --diff $(MODULE)
-	flake8 --color never $(MODULE)
+	black --extend-exclude '_version.py' --check --diff $(MODULE) tests
+	flake8 --color never $(MODULE) tests
 
 format: ## reformat with with yapf and isort
-	black --extend-exclude '_version.py' $(MODULE)
+	black --extend-exclude '_version.py' $(MODULE) tests
 
 test: ## run tests quickly with the default Python
-	pytest $(MODULE)/tests/
+	pytest tests/
 
 coverage: ## check code coverage quickly with the default Python
-	pytest -v --cov=$(MODULE) --cov-report term --color=yes $(MODULE)/tests/
+	pytest -v --cov=$(MODULE) --cov-report term --color=yes tests/
 
 coverage-html: ## check code coverage quickly with the default Python, showing as html
-	pytest -v --cov=$(MODULE) --cov-report=html:htmlcov --cov-report term --color=yes $(MODULE)/tests/
+	pytest -v --cov=$(MODULE) --cov-report=html:htmlcov --cov-report term --color=yes tests/
 	$(BROWSER) htmlcov/index.html
 
 clean-docs: ## remove files associated with building the docs
