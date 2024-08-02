@@ -8,11 +8,16 @@ dependencies:
   - pip
 
     # Testing
+  - black
+  - codecov
+  - flake8
   - pytest
   - pytest-cov
-  - codecov
 
     # Pip-only installs
-  #- pip:
-  #  - codecov
+  - pip:
+      - ase
+      # Documentation
+      - sphinx-copybutton
+
 
