@@ -19,5 +19,5 @@ dependencies:
       - ase
       # Documentation
       - sphinx-copybutton
-
+      - sphinx-design
 
