@@ -1,0 +1,7 @@
+seamm_ase
+=========
+
+.. toctree::
+   :maxdepth: 4
+
+   seamm_ase

@@ -1,0 +1,21 @@
+seamm\_ase package
+==================
+
+Submodules
+----------
+
+seamm\_ase.seamm\_ase module
+----------------------------
+
+.. automodule:: seamm_ase.seamm_ase
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: seamm_ase
+   :members:
+   :undoc-members:
+   :show-inheritance:
