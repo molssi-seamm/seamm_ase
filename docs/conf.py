@@ -22,15 +22,18 @@ import seamm_ase
 
 # -- Project information -----------------------------------------------------
 
-project = 'SEAMM-ASE'
-copyright = ("2024, Paul Saxe. Project structure based on the "
-             "Computational Molecular Science Python Cookiecutter version 1.10")
+project = 'SEAMM-ASE Connector'
+copyright = (
+    u"2024, Molecular Sciences Software Institute (MolSSI) "
+    "Project structure based on the "
+    "Computational Molecular Science Python Cookiecutter version 1.10"
+)
 author = 'Paul Saxe'
 
 # The short X.Y version
-version = ''
+version = seamm_ase.__version__
 # The full version, including alpha/beta/rc tags
-release = ''
+release = seamm_ase.__version__
 
 
 # -- General configuration ---------------------------------------------------
@@ -45,20 +48,22 @@ release = ''
 extensions = [
     'sphinx.ext.autosummary',
     'sphinx.ext.autodoc',
-    'sphinx.ext.mathjax',
-    'sphinx.ext.viewcode',
+    'sphinx.ext.githubpages',
     'sphinx.ext.napoleon',
+    'sphinx.ext.viewcode',
+    'sphinx_design',
+    'sphinx_copybutton',
+    'sphinx.ext.todo',
+    'sphinx.ext.mathjax',
     'sphinx.ext.intersphinx',
     'sphinx.ext.extlinks',
-    'sphinx_design',
-    'sphinx_copybutton',    
 ]
 
 
 autosummary_generate = True
-napoleon_google_docstring = False
-napoleon_use_param = False
-napoleon_use_ivar = True
+# napoleon_google_docstring = False
+# napoleon_use_param = False
+# napoleon_use_ivar = True
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -100,11 +105,37 @@ html_theme = 'pydata_sphinx_theme'
 # documentation.
 #
 # html_theme_options = {}
+html_theme_options = {
+    "github_url": "https://github.com/molssi-seamm/seamm_ase",
+    "twitter_url": "https://twitter.com/MolSSI_NSF",
+    "icon_links": [],
+    "logo": {
+        "image_light": "SEAMM logo.png",
+        "image_dark": "SEAMM Inverted 288x181.png",
+        "text": "LAMMPS Step",
+        "molssi_light": "molssi_main_logo.png",
+        "molssi_dark": "molssi_main_logo_inverted_white.png",
+    },
+    "show_toc_level": 2,
+    "header_links_before_dropdown": 4,
+    "external_links": [
+        {"name": "SEAMM Documentation", "url": "https://molssi-seamm.github.io"},
+        {"name": "MolSSI", "url": "https://molssi.org"}
+    ],
+    "secondary_sidebar_items": ["page-toc", "sourcelink"],
+    "footer_items": [ "molssi_footer" ],
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+# These paths are either relative to html_static_path
+# or fully qualified paths (eg. https://...)
+html_css_files = [
+    'css/custom.css',
+]
 
 # Custom sidebar templates, must be a dictionary that maps document names
 # to template names.
@@ -115,6 +146,14 @@ html_static_path = ['_static']
 # 'searchbox.html']``.
 #
 # html_sidebars = {}
+
+# If true, "Created using Sphinx" is shown in the HTML footer.
+# Default is True.
+html_show_sphinx = False
+
+# If true, "(C) Copyright ..." is shown in the HTML footer.
+# Default is True.
+html_show_copyright = False
 
 
 # -- Options for HTMLHelp output ---------------------------------------------

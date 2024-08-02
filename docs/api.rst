@@ -1,7 +1,17 @@
 API Documentation
 =================
 
-.. autosummary::
-   :toctree: autosummary
+Contents:
 
-   seamm_ase.canvas
+.. toctree::
+   :maxdepth: 2
+
+   api/modules
+
+
+Indices and tables
+------------------
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
