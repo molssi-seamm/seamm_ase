@@ -74,14 +74,18 @@ coverage-html: ## check code coverage quickly with the default Python, showing a
 
 clean-docs: ## remove files associated with building the docs
 	rm -f docs/api/$(MODULE).rst
+	rm -f docs/api/$(MODULE).tests.rst
 	rm -f docs/api/modules.rst
+	rm -f docs/autosummary/$(MODULE).$(MODULE).rst
 	$(MAKE) -C docs clean
 
 html: clean-docs ## generate Sphinx HTML documentation, including API docs
 	sphinx-apidoc -o docs/api $(MODULE)
 	$(MAKE) -C docs html
 	rm -f docs/api/$(MODULE).rst
+	rm -f docs/api/$(MODULE).tests.rst
 	rm -f docs/api/modules.rst
+	rm -f docs/autosummary/$(MODULE).$(MODULE).rst
 
 docs: html ## Make the html docs and show in the browser
 	$(BROWSER) docs/_build/html/index.html
