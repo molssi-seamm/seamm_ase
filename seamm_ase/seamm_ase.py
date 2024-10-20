@@ -2,23 +2,25 @@
 
 __all__ = ["ASE_mixin", "SEAMM_Calculator"]
 
+import calendar
 from datetime import datetime
 from importlib.resources import files
 import json
 import logging
 from pathlib import Path
-import pprint
 import shutil
+import string
 import sys
 import traceback
 
 from ase import Atoms as ASE_Atoms
-import ase.optimize as ASE_Optimize
 from ase.calculators.calculator import (
     Calculator as ASE_Calculator,
     all_changes as ASE_all_changes,
     register_calculator_class,
 )
+import ase.optimize as ASE_Optimize
+from ase.vibrations import Vibrations
 import bibtexparser
 import numpy as np
 from tabulate import tabulate
@@ -85,7 +87,14 @@ class SEAMM_Calculator(ASE_Calculator):
     implemented_properties = ["energy", "forces"]
     nolabel = True
 
-    def __init__(self, step, calculator=None, name=None, configuration=None, **kwargs):
+    def __init__(
+        self,
+        step,
+        calculator=None,
+        name=None,
+        configuration=None,
+        **kwargs,
+    ):
         """
         Parameters
         ----------
@@ -167,19 +176,26 @@ register_calculator_class("seamm", SEAMM_Calculator)
 class ASE_mixin:
     """A mix-in class for connnecting with ASE methods and calculators."""
 
-    def ase_read_bibliography(self):
-        """Read the bibliography from a file and add to the local bibliography"""
-        if "ASE" not in self._bibliography:
-            try:
-                data = files("seamm_ase.data").joinpath("references.bib").read_text()
-                tmp = bibtexparser.loads(data).entries_dict
-                writer = bibtexparser.bwriter.BibTexWriter()
-                for key, data in tmp.items():
-                    self.logger.info(f"      {key}")
-                    self._bibliography[key] = writer._entry_to_bibtex(data)
-                self.logger.debug("Bibliography\n" + pprint.pformat(self._bibliography))
-            except Exception:
-                pass
+    def ase_atoms(self, configuration):
+        """Return an ASE Atoms object for the configuration.
+
+        Parameters
+        ----------
+        configuration :  molsystem._Configuration
+            The configuration
+
+        Returns
+        -------
+        atoms : ase.Atoms()
+            The ASE Atoms object.
+        """
+        symbols = configuration.atoms.symbols
+        XYZ = configuration.atoms.coordinates
+
+        calculator = SEAMM_Calculator(self)
+        atoms = ASE_Atoms("".join(symbols), positions=XYZ, calculator=calculator)
+
+        return atoms
 
     def ase_calculator(
         self,
@@ -208,7 +224,8 @@ class ASE_mixin:
 
         self._step += 1
         self._results["nsteps"] = self._step
-        self._data["step"].append(self._step)
+        if "step" in self._data:
+            self._data["step"].append(self._step)
         fmt = "05d"
 
         calculator.results = {}
@@ -282,7 +299,7 @@ class ASE_mixin:
             traceback.print_exc(file=sys.stderr)
             traceback.print_exc(file=sys.stdout)
         except Exception as e:
-            printer.job(f"Caught exception in step {self.step}: {str(e)}")
+            printer.job(f"Caught exception in step {self._step}: {str(e)}")
             with open(step_dir / "stderr.out", "a") as fd:
                 traceback.print_exc(file=fd)
             raise
@@ -327,7 +344,8 @@ class ASE_mixin:
             units = data["energy,units"]
         else:
             units = "kJ/mol"
-        self._data["energy"].append(energy)
+        if "energy" in self._data:
+            self._data["energy"].append(energy)
 
         energy *= Q_(1.0, units).to("eV").magnitude
         self._results["energy"] = Q_(energy, "eV").m_as("kJ/mol")
@@ -348,21 +366,22 @@ class ASE_mixin:
             funits = "kJ/mol/Å"
 
         # Get the measures of convergence
-        max_force = np.max(np.linalg.norm(gradients, axis=1))
-        self._data["max_force"].append(max_force)
-        self._results["maximum_gradient"] = Q_(max_force, funits).m_as("kJ/mol/Å")
-        rms_force = np.sqrt(np.mean(np.linalg.norm(gradients, axis=1) ** 2))
-        self._data["rms_force"].append(rms_force)
-        self._results["rms_gradient"] = Q_(rms_force, funits).m_as("kJ/mol/Å")
+        if "max_force" in self._data:
+            max_force = np.max(np.linalg.norm(gradients, axis=1))
+            self._data["max_force"].append(max_force)
+            self._results["maximum_gradient"] = Q_(max_force, funits).m_as("kJ/mol/Å")
+            rms_force = np.sqrt(np.mean(np.linalg.norm(gradients, axis=1) ** 2))
+            self._data["rms_force"].append(rms_force)
+            self._results["rms_gradient"] = Q_(rms_force, funits).m_as("kJ/mol/Å")
 
-        if self._step > 1:
-            step = positions - self._last_coordinates
-            max_step = np.max(np.linalg.norm(step, axis=1))
-        else:
-            max_step = 0.0
-        self._data["max_step"].append(max_step)
-        self._results["maximum_step"] = max_step
-        self._last_coordinates = np.array(positions)
+            if self._step > 1:
+                step = positions - self._last_coordinates
+                max_step = np.max(np.linalg.norm(step, axis=1))
+            else:
+                max_step = 0.0
+            self._data["max_step"].append(max_step)
+            self._results["maximum_step"] = max_step
+            self._last_coordinates = np.array(positions)
 
         # Units!
         gradients = np.array(gradients) * Q_(1.0, funits).to("eV/Å").magnitude
@@ -391,7 +410,137 @@ class ASE_mixin:
                 fd.write("\n")
 
         # and plot the results
-        self.plot(E_units=units, F_units=funits)
+        if "step" in self._data:
+            self.plot(E_units=units, F_units=funits)
+
+        # Citation!
+        self.ase_read_bibliography()
+        if "seamm_ase" in self._bibliography:
+            self.references.cite(
+                raw=self._bibliography["seamm_ase"],
+                alias="seamm_ase",
+                module="seamm_ase",
+                level=self.citation_level,
+                note=("The principle citation for the ASE connector for SEAMM."),
+            )
+
+    def ase_read_bibliography(self):
+        """Read the bibliography from a file and add to the local bibliography"""
+        self.logger.debug("Reading the seamm_ase bibliography")
+        if "seamm-ase" not in self._bibliography:
+            try:
+                data = files("seamm_ase.data").joinpath("references.bib").read_text()
+                tmp = bibtexparser.loads(data).entries_dict
+                writer = bibtexparser.bwriter.BibTexWriter()
+                for key, data in tmp.items():
+                    self.logger.debug(f"      {key}")
+                    self._bibliography[key] = writer._entry_to_bibtex(data)
+            except Exception as e:
+                self.logger.info(f"Exception in reading seamm_ase bibliography: {e}")
+                pass
+        if "seamm_ase" in self._bibliography:
+            try:
+                template = string.Template(self._bibliography["seamm_ase"])
+
+                if "untagged" in __version__ or "unknown" in __version__:
+                    # Development version
+                    year = datetime.now().year
+                    month = datetime.now().month
+                else:
+                    year, month = __version__.split(".")[0:2]
+                try:
+                    month = calendar.month_abbr[int(month)].lower()
+                except Exception:
+                    year = datetime.now().year
+                    month = datetime.now().month
+                    month = calendar.month_abbr[int(month)].lower()
+
+                citation = template.substitute(
+                    month=month, version=__version__, year=str(year)
+                )
+
+                self._bibliography["seamm_ase"] = citation
+            except Exception as e:
+                printer.important(f"Exception in citation {type(e)}: {e}")
+                printer.important(traceback.format_exc())
+
+    def run_ase_Hessian(
+        self,
+        step_size=0.01,
+        on_error="keep last subdirectory",
+        on_success="delete all subdirectories",
+    ):
+        """Run ASE to get the Hessian
+
+        Parameters
+        ----------
+        step_size : float
+            The finite-difference step, in Angstrom
+
+        Returns
+        -------
+        vibrations : ASE VibrationsData() object
+        """
+        # Citation!
+        self.ase_read_bibliography()
+        if "ASE" in self._bibliography:
+            self.references.cite(
+                raw=self._bibliography["ASE"],
+                alias="ASE",
+                module="seamm_ase",
+                level=1,
+                note="Main reference for ASE.",
+            )
+
+        self._last_coordinates = None
+        self._step = 0
+
+        _, starting_configuration = self.get_system_configuration()
+        wd = Path(self.directory)
+        wd.mkdir(parents=True, exist_ok=True)
+
+        # Do not log the energies, etc.
+        self._logfile = None
+
+        atoms = self.ase_atoms(starting_configuration)
+
+        # The ASE Vibrations object
+        vibrations = Vibrations(atoms, name=wd / "finite-difference", delta=step_size)
+
+        # Run the finite-difference calculation of the Hessian
+        caught_error = False
+        exception = None
+        try:
+            vibrations.run()
+        except Exception as e:  # noqa: F841
+            exception = e
+            caught_error = True
+            print(f"Exception: {exception}")
+
+        # Clean up the subdirectories
+        if caught_error:
+            if "all" in on_error:
+                subdirectories = wd.glob("step_*")
+                for subdirectory in subdirectories:
+                    shutil.rmtree(subdirectory)
+            elif "last" in on_error:
+                subdirectories = wd.glob("step_*")
+                subdirectories = sorted(subdirectories)
+                for subdirectory in subdirectories[:-1]:
+                    shutil.rmtree(subdirectory)
+            raise exception from None
+        else:
+            if "all" in on_success:
+                subdirectories = wd.glob("step_*")
+                for subdirectory in subdirectories:
+                    shutil.rmtree(subdirectory)
+            elif "last" in on_success:
+                subdirectories = wd.glob("step_*")
+                subdirectories = sorted(subdirectories)
+                for subdirectory in subdirectories[:-1]:
+                    shutil.rmtree(subdirectory)
+
+        return vibrations.get_vibrations()
 
     def run_ase_optimizer(self, P, PP):
         """Run a Structure step.
@@ -403,6 +552,17 @@ class ASE_mixin:
         PP : dict
             The current values of the parameters, formatted for printing
         """
+        # Citation!
+        self.ase_read_bibliography()
+        if "ASE" in self._bibliography:
+            self.references.cite(
+                raw=self._bibliography["ASE"],
+                alias="ASE",
+                module="seamm_ase",
+                level=1,
+                note="Main reference for ASE.",
+            )
+
         self._data = {
             "step": [],
             "energy": [],
