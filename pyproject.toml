@@ -22,6 +22,11 @@ requires-python = ">=3.8"
 # Declare any run-time dependencies that should be installed with the package.
 dependencies = [
     "ase",
+    "bibtexparser",
+    "importlib-resources",
+    "numpy",
+    "seamm-util",
+    "tabulate",
 ]
 
 # Update the urls once the hosting is set up.
@@ -62,7 +67,8 @@ where = ["."]
 # Ref https://setuptools.pypa.io/en/latest/userguide/datafiles.html#package-data
 [tool.setuptools.package-data]
 seamm_ase = [
-    "py.typed"
+    "py.typed",
+    "data/*"
 ]
 
 [tool.versioningit]
