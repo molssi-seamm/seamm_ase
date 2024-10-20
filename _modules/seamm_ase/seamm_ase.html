@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>seamm_ase.seamm_ase &#8212; SEAMM-ASE Connector 2024.8.17 documentation</title>
+    <title>seamm_ase.seamm_ase &#8212; SEAMM-ASE Connector 2024.10.20 documentation</title>
   
   
   
@@ -37,8 +37,8 @@
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../../_static/documentation_options.js?v=53a1b1fa"></script>
-    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/documentation_options.js?v=b88505f4"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../_static/copybutton.js?v=f281be69"></script>
@@ -452,17 +452,39 @@ document.write(`
   <h1>Source code for seamm_ase.seamm_ase</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;SEAMM_Calculator&quot;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ASE_mixin&quot;</span><span class="p">,</span> <span class="s2">&quot;SEAMM_Calculator&quot;</span><span class="p">]</span>
 
+<span class="kn">import</span> <span class="nn">calendar</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">importlib.resources</span> <span class="kn">import</span> <span class="n">files</span>
+<span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">string</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">traceback</span>
 
+<span class="kn">from</span> <span class="nn">ase</span> <span class="kn">import</span> <span class="n">Atoms</span> <span class="k">as</span> <span class="n">ASE_Atoms</span>
 <span class="kn">from</span> <span class="nn">ase.calculators.calculator</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">Calculator</span> <span class="k">as</span> <span class="n">ASE_Calculator</span><span class="p">,</span>
     <span class="n">all_changes</span> <span class="k">as</span> <span class="n">ASE_all_changes</span><span class="p">,</span>
     <span class="n">register_calculator_class</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="kn">import</span> <span class="nn">ase.optimize</span> <span class="k">as</span> <span class="nn">ASE_Optimize</span>
+<span class="kn">from</span> <span class="nn">ase.vibrations</span> <span class="kn">import</span> <span class="n">Vibrations</span>
+<span class="kn">import</span> <span class="nn">bibtexparser</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">tabulate</span> <span class="kn">import</span> <span class="n">tabulate</span>
+
+<span class="kn">from</span> <span class="nn">seamm_util</span> <span class="kn">import</span> <span class="n">Q_</span>
+<span class="kn">import</span> <span class="nn">seamm_util.printing</span> <span class="k">as</span> <span class="nn">printing</span>
+<span class="kn">from</span> <span class="nn">seamm_util.printing</span> <span class="kn">import</span> <span class="n">FormattedText</span> <span class="k">as</span> <span class="n">__</span>  <span class="c1"># noqa: F401</span>
+<span class="kn">from</span> <span class="nn">._version</span> <span class="kn">import</span> <span class="n">__version__</span>  <span class="c1"># noqa: F401</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">printing</span><span class="o">.</span><span class="n">getPrinter</span><span class="p">()</span>
+<span class="n">printer</span> <span class="o">=</span> <span class="n">printing</span><span class="o">.</span><span class="n">getPrinter</span><span class="p">(</span><span class="s2">&quot;ASE&quot;</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="SEAMM_Calculator">
@@ -519,7 +541,14 @@ document.write(`
     <span class="n">implemented_properties</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;energy&quot;</span><span class="p">,</span> <span class="s2">&quot;forces&quot;</span><span class="p">]</span>
     <span class="n">nolabel</span> <span class="o">=</span> <span class="kc">True</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">calculator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">configuration</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">step</span><span class="p">,</span>
+        <span class="n">calculator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">configuration</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -581,7 +610,7 @@ document.write(`
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    </span><span class="si">{</span><span class="n">atoms</span><span class="w"> </span><span class="ow">is</span><span class="w"> </span><span class="kc">None</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">step</span><span class="o">.</span><span class="n">calculate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">properties</span><span class="p">,</span> <span class="n">system_changes</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">step</span><span class="o">.</span><span class="n">ase_calculator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">properties</span><span class="p">,</span> <span class="n">system_changes</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">calculator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">properties</span><span class="p">,</span> <span class="n">system_changes</span><span class="p">)</span></div>
 
@@ -606,6 +635,527 @@ document.write(`
 
 
 <span class="n">register_calculator_class</span><span class="p">(</span><span class="s2">&quot;seamm&quot;</span><span class="p">,</span> <span class="n">SEAMM_Calculator</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="ASE_mixin">
+<a class="viewcode-back" href="../../api/seamm_ase.html#seamm_ase.seamm_ase.ASE_mixin">[docs]</a>
+<span class="k">class</span> <span class="nc">ASE_mixin</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A mix-in class for connnecting with ASE methods and calculators.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ASE_mixin.ase_atoms">
+<a class="viewcode-back" href="../../api/seamm_ase.html#seamm_ase.seamm_ase.ASE_mixin.ase_atoms">[docs]</a>
+    <span class="k">def</span> <span class="nf">ase_atoms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configuration</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return an ASE Atoms object for the configuration.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        configuration :  molsystem._Configuration</span>
+<span class="sd">            The configuration</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        atoms : ase.Atoms()</span>
+<span class="sd">            The ASE Atoms object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">symbols</span> <span class="o">=</span> <span class="n">configuration</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">symbols</span>
+        <span class="n">XYZ</span> <span class="o">=</span> <span class="n">configuration</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">coordinates</span>
+
+        <span class="n">calculator</span> <span class="o">=</span> <span class="n">SEAMM_Calculator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">atoms</span> <span class="o">=</span> <span class="n">ASE_Atoms</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">symbols</span><span class="p">),</span> <span class="n">positions</span><span class="o">=</span><span class="n">XYZ</span><span class="p">,</span> <span class="n">calculator</span><span class="o">=</span><span class="n">calculator</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">atoms</span></div>
+
+
+<div class="viewcode-block" id="ASE_mixin.ase_calculator">
+<a class="viewcode-back" href="../../api/seamm_ase.html#seamm_ase.seamm_ase.ASE_mixin.ase_calculator">[docs]</a>
+    <span class="k">def</span> <span class="nf">ase_calculator</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">calculator</span><span class="p">,</span>
+        <span class="n">properties</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;energy&quot;</span><span class="p">],</span>
+        <span class="n">system_changes</span><span class="o">=</span><span class="n">ASE_all_changes</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a calculator for the structure step.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        ase : ase.calculators.calculator.Calculator</span>
+<span class="sd">            The ASE calculator we are working for</span>
+<span class="sd">        properties : list of str</span>
+<span class="sd">            The properties to calculate.</span>
+<span class="sd">        system_changes : int</span>
+<span class="sd">            The changes to the system.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        results : dict</span>
+<span class="sd">            The dictionary of results from the calculation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">wd</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="p">)</span>
+        <span class="n">wd</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_step</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;nsteps&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_step</span>
+        <span class="k">if</span> <span class="s2">&quot;step&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s2">&quot;step&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_step</span><span class="p">)</span>
+        <span class="n">fmt</span> <span class="o">=</span> <span class="s2">&quot;05d&quot;</span>
+
+        <span class="n">calculator</span><span class="o">.</span><span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">n_atoms</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">calculator</span><span class="o">.</span><span class="n">atoms</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">n_atoms</span><span class="si">}</span><span class="s2"> atoms in the structure&quot;</span><span class="p">)</span>
+        <span class="n">positions</span> <span class="o">=</span> <span class="n">calculator</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">positions</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Positions: </span><span class="si">{</span><span class="n">positions</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">cell</span> <span class="o">=</span> <span class="n">calculator</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">cell</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cell: </span><span class="si">{</span><span class="n">cell</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Set the coordinates in the configuration</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_working_configuration</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">set_coordinates</span><span class="p">(</span><span class="n">positions</span><span class="p">,</span> <span class="n">fractionals</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="c1"># Find the handler for job.out and set the level up</span>
+        <span class="n">job_handler</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">out_handler</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">handler</span> <span class="ow">in</span> <span class="n">job</span><span class="o">.</span><span class="n">handlers</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="nb">isinstance</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="n">logging</span><span class="o">.</span><span class="n">FileHandler</span><span class="p">)</span>
+                <span class="ow">and</span> <span class="s2">&quot;job.out&quot;</span> <span class="ow">in</span> <span class="n">handler</span><span class="o">.</span><span class="n">baseFilename</span>
+            <span class="p">):</span>
+                <span class="n">job_handler</span> <span class="o">=</span> <span class="n">handler</span>
+                <span class="n">job_level</span> <span class="o">=</span> <span class="n">job_handler</span><span class="o">.</span><span class="n">level</span>
+                <span class="n">job_handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">printing</span><span class="o">.</span><span class="n">JOB</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">):</span>
+                <span class="n">out_handler</span> <span class="o">=</span> <span class="n">handler</span>
+                <span class="n">out_level</span> <span class="o">=</span> <span class="n">out_handler</span><span class="o">.</span><span class="n">level</span>
+                <span class="n">out_handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">printing</span><span class="o">.</span><span class="n">JOB</span><span class="p">)</span>
+
+        <span class="c1"># Get the first real node</span>
+        <span class="n">first_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">subflowchart</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="s2">&quot;1&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+
+        <span class="c1"># Ensure the nodes have their options</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">first_node</span>
+        <span class="k">while</span> <span class="n">node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">node</span><span class="o">.</span><span class="n">all_options</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_options</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+
+        <span class="c1"># And the subflowchart has the executor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subflowchart</span><span class="o">.</span><span class="n">executor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">flowchart</span><span class="o">.</span><span class="n">executor</span>
+
+        <span class="c1"># Direct most output to iteration.out</span>
+        <span class="n">step_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;step_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_step</span><span class="si">:{</span><span class="n">fmt</span><span class="si">}}</span><span class="s2">&quot;</span>
+        <span class="n">step_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="p">)</span> <span class="o">/</span> <span class="n">step_id</span>
+        <span class="n">step_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># A handler for the file</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file_handler</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_file_handler</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="n">job</span><span class="o">.</span><span class="n">removeHandler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_handler</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">step_dir</span> <span class="o">/</span> <span class="s2">&quot;Step.out&quot;</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">missing_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file_handler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">FileHandler</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file_handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">printing</span><span class="o">.</span><span class="n">NORMAL</span><span class="p">)</span>
+        <span class="n">formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{message:s}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;{&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file_handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>
+        <span class="n">job</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_handler</span><span class="p">)</span>
+
+        <span class="c1"># Add the step to the ids so the directory structure is reasonable</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subflowchart</span><span class="o">.</span><span class="n">reset_visited</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_subids</span><span class="p">((</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_id</span><span class="p">,</span> <span class="n">step_id</span><span class="p">))</span>
+
+        <span class="c1"># Run through the steps in the loop body</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">first_node</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">while</span> <span class="n">node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">DeprecationWarning</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">printer</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Deprecation warning: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="n">traceback</span><span class="o">.</span><span class="n">print_exc</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+            <span class="n">traceback</span><span class="o">.</span><span class="n">print_exc</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">printer</span><span class="o">.</span><span class="n">job</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Caught exception in step </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_step</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">step_dir</span> <span class="o">/</span> <span class="s2">&quot;stderr.out&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fd</span><span class="p">:</span>
+                <span class="n">traceback</span><span class="o">.</span><span class="n">print_exc</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">fd</span><span class="p">)</span>
+            <span class="k">raise</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;End of step </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_step</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Remove any redirection of printing.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file_handler</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_file_handler</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="n">job</span><span class="o">.</span><span class="n">removeHandler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_handler</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_file_handler</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">job_handler</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">job_handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">job_level</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">out_handler</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">out_handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">out_level</span><span class="p">)</span>
+
+        <span class="c1"># Get the energy and derivatives</span>
+        <span class="n">paths</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">step_dir</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;**/Results.json&quot;</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="s2">&quot;There are no energy and gradients in properties.json for step &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_step</span><span class="si">}</span><span class="s2"> in </span><span class="si">{</span><span class="n">step_dir</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Find the most recent and assume that is the one wanted</span>
+            <span class="n">newest_time</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
+                <span class="k">with</span> <span class="n">path</span><span class="o">.</span><span class="n">open</span><span class="p">()</span> <span class="k">as</span> <span class="n">fd</span><span class="p">:</span>
+                    <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fd</span><span class="p">)</span>
+                <span class="n">time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">fromisoformat</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;iso time&quot;</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">newest_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">newest</span> <span class="o">=</span> <span class="n">path</span>
+                    <span class="n">newest_time</span> <span class="o">=</span> <span class="n">time</span>
+                <span class="k">elif</span> <span class="n">time</span> <span class="o">&gt;</span> <span class="n">newest_time</span><span class="p">:</span>
+                    <span class="n">newest_time</span> <span class="o">=</span> <span class="n">time</span>
+                    <span class="n">newest</span> <span class="o">=</span> <span class="n">path</span>
+            <span class="k">with</span> <span class="n">newest</span><span class="o">.</span><span class="n">open</span><span class="p">()</span> <span class="k">as</span> <span class="n">fd</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fd</span><span class="p">)</span>
+
+        <span class="n">energy</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;energy&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s2">&quot;energy,units&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="n">units</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;energy,units&quot;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;kJ/mol&quot;</span>
+        <span class="k">if</span> <span class="s2">&quot;energy&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s2">&quot;energy&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">energy</span><span class="p">)</span>
+
+        <span class="n">energy</span> <span class="o">*=</span> <span class="n">Q_</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">units</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;eV&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;energy&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Q_</span><span class="p">(</span><span class="n">energy</span><span class="p">,</span> <span class="s2">&quot;eV&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">m_as</span><span class="p">(</span><span class="s2">&quot;kJ/mol&quot;</span><span class="p">)</span>
+
+        <span class="n">gradients</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;gradients&quot;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">gradients&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_atoms</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;   </span><span class="si">{</span><span class="n">gradients</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">8.3f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">gradients</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">8.3f</span><span class="si">}</span><span class="s2"> &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">gradients</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="si">:</span><span class="s2">8.3f</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+
+        <span class="k">if</span> <span class="s2">&quot;gradients,units&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="n">funits</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;gradients,units&quot;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">funits</span> <span class="o">=</span> <span class="s2">&quot;kJ/mol/Å&quot;</span>
+
+        <span class="c1"># Get the measures of convergence</span>
+        <span class="k">if</span> <span class="s2">&quot;max_force&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">:</span>
+            <span class="n">max_force</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">gradients</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s2">&quot;max_force&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">max_force</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;maximum_gradient&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Q_</span><span class="p">(</span><span class="n">max_force</span><span class="p">,</span> <span class="n">funits</span><span class="p">)</span><span class="o">.</span><span class="n">m_as</span><span class="p">(</span><span class="s2">&quot;kJ/mol/Å&quot;</span><span class="p">)</span>
+            <span class="n">rms_force</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">gradients</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s2">&quot;rms_force&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rms_force</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;rms_gradient&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Q_</span><span class="p">(</span><span class="n">rms_force</span><span class="p">,</span> <span class="n">funits</span><span class="p">)</span><span class="o">.</span><span class="n">m_as</span><span class="p">(</span><span class="s2">&quot;kJ/mol/Å&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_step</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">step</span> <span class="o">=</span> <span class="n">positions</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last_coordinates</span>
+                <span class="n">max_step</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">max_step</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s2">&quot;max_step&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">max_step</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;maximum_step&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">max_step</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_last_coordinates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">positions</span><span class="p">)</span>
+
+        <span class="c1"># Units!</span>
+        <span class="n">gradients</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">gradients</span><span class="p">)</span> <span class="o">*</span> <span class="n">Q_</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">funits</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;eV/Å&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span>
+
+        <span class="n">calculator</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;energy&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">energy</span>
+        <span class="n">calculator</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;forces&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">gradients</span>
+
+        <span class="c1"># Log the results</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">headers</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="s2">&quot;Step&quot;</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s2">&quot;E (</span><span class="si">{</span><span class="n">units</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s2">&quot;Fmax (</span><span class="si">{</span><span class="n">funits</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s2">&quot;Frms (</span><span class="si">{</span><span class="n">funits</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;max step (Å)&quot;</span><span class="p">,</span>
+            <span class="p">]</span>
+            <span class="n">tmp</span> <span class="o">=</span> <span class="n">tabulate</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">,</span>
+                <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+                <span class="n">tablefmt</span><span class="o">=</span><span class="s2">&quot;rounded_outline&quot;</span><span class="p">,</span>
+                <span class="n">disable_numparse</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">floatfmt</span><span class="o">=</span><span class="s2">&quot;.3f&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logfile</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fd</span><span class="p">:</span>
+                <span class="n">fd</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+                <span class="n">fd</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># and plot the results</span>
+        <span class="k">if</span> <span class="s2">&quot;step&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">E_units</span><span class="o">=</span><span class="n">units</span><span class="p">,</span> <span class="n">F_units</span><span class="o">=</span><span class="n">funits</span><span class="p">)</span>
+
+        <span class="c1"># Citation!</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ase_read_bibliography</span><span class="p">()</span>
+        <span class="k">if</span> <span class="s2">&quot;seamm_ase&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bibliography</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">references</span><span class="o">.</span><span class="n">cite</span><span class="p">(</span>
+                <span class="n">raw</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_bibliography</span><span class="p">[</span><span class="s2">&quot;seamm_ase&quot;</span><span class="p">],</span>
+                <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;seamm_ase&quot;</span><span class="p">,</span>
+                <span class="n">module</span><span class="o">=</span><span class="s2">&quot;seamm_ase&quot;</span><span class="p">,</span>
+                <span class="n">level</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">citation_level</span><span class="p">,</span>
+                <span class="n">note</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;The principle citation for the ASE connector for SEAMM.&quot;</span><span class="p">),</span>
+            <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ASE_mixin.ase_read_bibliography">
+<a class="viewcode-back" href="../../api/seamm_ase.html#seamm_ase.seamm_ase.ASE_mixin.ase_read_bibliography">[docs]</a>
+    <span class="k">def</span> <span class="nf">ase_read_bibliography</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Read the bibliography from a file and add to the local bibliography&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Reading the seamm_ase bibliography&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s2">&quot;seamm-ase&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bibliography</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">files</span><span class="p">(</span><span class="s2">&quot;seamm_ase.data&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="s2">&quot;references.bib&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span>
+                <span class="n">tmp</span> <span class="o">=</span> <span class="n">bibtexparser</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">entries_dict</span>
+                <span class="n">writer</span> <span class="o">=</span> <span class="n">bibtexparser</span><span class="o">.</span><span class="n">bwriter</span><span class="o">.</span><span class="n">BibTexWriter</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">tmp</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;      </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_bibliography</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">writer</span><span class="o">.</span><span class="n">_entry_to_bibtex</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Exception in reading seamm_ase bibliography: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">pass</span>
+        <span class="k">if</span> <span class="s2">&quot;seamm_ase&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bibliography</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">template</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">Template</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bibliography</span><span class="p">[</span><span class="s2">&quot;seamm_ase&quot;</span><span class="p">])</span>
+
+                <span class="k">if</span> <span class="s2">&quot;untagged&quot;</span> <span class="ow">in</span> <span class="n">__version__</span> <span class="ow">or</span> <span class="s2">&quot;unknown&quot;</span> <span class="ow">in</span> <span class="n">__version__</span><span class="p">:</span>
+                    <span class="c1"># Development version</span>
+                    <span class="n">year</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">year</span>
+                    <span class="n">month</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">month</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">year</span><span class="p">,</span> <span class="n">month</span> <span class="o">=</span> <span class="n">__version__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">month</span> <span class="o">=</span> <span class="n">calendar</span><span class="o">.</span><span class="n">month_abbr</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">month</span><span class="p">)]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                    <span class="n">year</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">year</span>
+                    <span class="n">month</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">month</span>
+                    <span class="n">month</span> <span class="o">=</span> <span class="n">calendar</span><span class="o">.</span><span class="n">month_abbr</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">month</span><span class="p">)]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+                <span class="n">citation</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">substitute</span><span class="p">(</span>
+                    <span class="n">month</span><span class="o">=</span><span class="n">month</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="n">__version__</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">year</span><span class="p">)</span>
+                <span class="p">)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">_bibliography</span><span class="p">[</span><span class="s2">&quot;seamm_ase&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">citation</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">printer</span><span class="o">.</span><span class="n">important</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Exception in citation </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">printer</span><span class="o">.</span><span class="n">important</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="ASE_mixin.run_ase_Hessian">
+<a class="viewcode-back" href="../../api/seamm_ase.html#seamm_ase.seamm_ase.ASE_mixin.run_ase_Hessian">[docs]</a>
+    <span class="k">def</span> <span class="nf">run_ase_Hessian</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">step_size</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
+        <span class="n">on_error</span><span class="o">=</span><span class="s2">&quot;keep last subdirectory&quot;</span><span class="p">,</span>
+        <span class="n">on_success</span><span class="o">=</span><span class="s2">&quot;delete all subdirectories&quot;</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Run ASE to get the Hessian</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        step_size : float</span>
+<span class="sd">            The finite-difference step, in Angstrom</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        vibrations : ASE VibrationsData() object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Citation!</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ase_read_bibliography</span><span class="p">()</span>
+        <span class="k">if</span> <span class="s2">&quot;ASE&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bibliography</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">references</span><span class="o">.</span><span class="n">cite</span><span class="p">(</span>
+                <span class="n">raw</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_bibliography</span><span class="p">[</span><span class="s2">&quot;ASE&quot;</span><span class="p">],</span>
+                <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;ASE&quot;</span><span class="p">,</span>
+                <span class="n">module</span><span class="o">=</span><span class="s2">&quot;seamm_ase&quot;</span><span class="p">,</span>
+                <span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                <span class="n">note</span><span class="o">=</span><span class="s2">&quot;Main reference for ASE.&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_last_coordinates</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_step</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="n">_</span><span class="p">,</span> <span class="n">starting_configuration</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_system_configuration</span><span class="p">()</span>
+        <span class="n">wd</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="p">)</span>
+        <span class="n">wd</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># Do not log the energies, etc.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logfile</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">atoms</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ase_atoms</span><span class="p">(</span><span class="n">starting_configuration</span><span class="p">)</span>
+
+        <span class="c1"># The ASE Vibrations object</span>
+        <span class="n">vibrations</span> <span class="o">=</span> <span class="n">Vibrations</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">wd</span> <span class="o">/</span> <span class="s2">&quot;finite-difference&quot;</span><span class="p">,</span> <span class="n">delta</span><span class="o">=</span><span class="n">step_size</span><span class="p">)</span>
+
+        <span class="c1"># Run the finite-difference calculation of the Hessian</span>
+        <span class="n">caught_error</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">exception</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">vibrations</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>  <span class="c1"># noqa: F841</span>
+            <span class="n">exception</span> <span class="o">=</span> <span class="n">e</span>
+            <span class="n">caught_error</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Exception: </span><span class="si">{</span><span class="n">exception</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Clean up the subdirectories</span>
+        <span class="k">if</span> <span class="n">caught_error</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">&quot;all&quot;</span> <span class="ow">in</span> <span class="n">on_error</span><span class="p">:</span>
+                <span class="n">subdirectories</span> <span class="o">=</span> <span class="n">wd</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;step_*&quot;</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">subdirectory</span> <span class="ow">in</span> <span class="n">subdirectories</span><span class="p">:</span>
+                    <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">subdirectory</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="s2">&quot;last&quot;</span> <span class="ow">in</span> <span class="n">on_error</span><span class="p">:</span>
+                <span class="n">subdirectories</span> <span class="o">=</span> <span class="n">wd</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;step_*&quot;</span><span class="p">)</span>
+                <span class="n">subdirectories</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">subdirectories</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">subdirectory</span> <span class="ow">in</span> <span class="n">subdirectories</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                    <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">subdirectory</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">exception</span> <span class="kn">from</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">&quot;all&quot;</span> <span class="ow">in</span> <span class="n">on_success</span><span class="p">:</span>
+                <span class="n">subdirectories</span> <span class="o">=</span> <span class="n">wd</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;step_*&quot;</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">subdirectory</span> <span class="ow">in</span> <span class="n">subdirectories</span><span class="p">:</span>
+                    <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">subdirectory</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="s2">&quot;last&quot;</span> <span class="ow">in</span> <span class="n">on_success</span><span class="p">:</span>
+                <span class="n">subdirectories</span> <span class="o">=</span> <span class="n">wd</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;step_*&quot;</span><span class="p">)</span>
+                <span class="n">subdirectories</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">subdirectories</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">subdirectory</span> <span class="ow">in</span> <span class="n">subdirectories</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                    <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">subdirectory</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">vibrations</span><span class="o">.</span><span class="n">get_vibrations</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="ASE_mixin.run_ase_optimizer">
+<a class="viewcode-back" href="../../api/seamm_ase.html#seamm_ase.seamm_ase.ASE_mixin.run_ase_optimizer">[docs]</a>
+    <span class="k">def</span> <span class="nf">run_ase_optimizer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">PP</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Run a Structure step.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        P : dict</span>
+<span class="sd">            The current values of the parameters</span>
+<span class="sd">        PP : dict</span>
+<span class="sd">            The current values of the parameters, formatted for printing</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Citation!</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ase_read_bibliography</span><span class="p">()</span>
+        <span class="k">if</span> <span class="s2">&quot;ASE&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bibliography</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">references</span><span class="o">.</span><span class="n">cite</span><span class="p">(</span>
+                <span class="n">raw</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_bibliography</span><span class="p">[</span><span class="s2">&quot;ASE&quot;</span><span class="p">],</span>
+                <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;ASE&quot;</span><span class="p">,</span>
+                <span class="n">module</span><span class="o">=</span><span class="s2">&quot;seamm_ase&quot;</span><span class="p">,</span>
+                <span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                <span class="n">note</span><span class="o">=</span><span class="s2">&quot;Main reference for ASE.&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;step&quot;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">&quot;energy&quot;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">&quot;max_force&quot;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">&quot;rms_force&quot;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">&quot;max_step&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_last_coordinates</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_step</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="n">_</span><span class="p">,</span> <span class="n">starting_configuration</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_system_configuration</span><span class="p">()</span>
+        <span class="n">n_atoms</span> <span class="o">=</span> <span class="n">starting_configuration</span><span class="o">.</span><span class="n">n_atoms</span>
+
+        <span class="c1"># Print what we are doing</span>
+        <span class="n">printer</span><span class="o">.</span><span class="n">important</span><span class="p">(</span>
+            <span class="n">__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">description_text</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">short</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">natoms</span><span class="o">=</span><span class="n">n_atoms</span><span class="p">),</span> <span class="n">indent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">indent</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Create the directory</span>
+        <span class="n">wd</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="p">)</span>
+        <span class="n">wd</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># Setup the log file for the optimization</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logfile</span> <span class="o">=</span> <span class="n">wd</span> <span class="o">/</span> <span class="s2">&quot;optimization.log&quot;</span>
+
+        <span class="n">symbols</span> <span class="o">=</span> <span class="n">starting_configuration</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">symbols</span>
+        <span class="n">XYZ</span> <span class="o">=</span> <span class="n">starting_configuration</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">coordinates</span>
+
+        <span class="n">calculator</span> <span class="o">=</span> <span class="n">SEAMM_Calculator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">atoms</span> <span class="o">=</span> <span class="n">ASE_Atoms</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">symbols</span><span class="p">),</span> <span class="n">positions</span><span class="o">=</span><span class="n">XYZ</span><span class="p">,</span> <span class="n">calculator</span><span class="o">=</span><span class="n">calculator</span><span class="p">)</span>
+
+        <span class="c1"># The default maximum number of steps may vary depending on the optimizer</span>
+        <span class="n">max_steps</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="s2">&quot;max steps&quot;</span><span class="p">]</span>
+
+        <span class="c1"># Optimize the structure</span>
+        <span class="n">optimizer</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="s2">&quot;optimizer&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">optimizer</span> <span class="o">==</span> <span class="s2">&quot;bfgs&quot;</span><span class="p">:</span>
+            <span class="n">optimizer</span> <span class="o">=</span> <span class="n">ASE_Optimize</span><span class="o">.</span><span class="n">BFGS</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">restart</span><span class="o">=</span><span class="n">wd</span> <span class="o">/</span> <span class="s2">&quot;bfgs.json&quot;</span><span class="p">,</span> <span class="n">logfile</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">optimizer</span> <span class="o">==</span> <span class="s2">&quot;lbfgs&quot;</span><span class="p">:</span>
+            <span class="n">optimizer</span> <span class="o">=</span> <span class="n">ASE_Optimize</span><span class="o">.</span><span class="n">LBFGS</span><span class="p">(</span>
+                <span class="n">atoms</span><span class="p">,</span> <span class="n">restart</span><span class="o">=</span><span class="n">wd</span> <span class="o">/</span> <span class="s2">&quot;lbfgs.json&quot;</span><span class="p">,</span> <span class="n">logfile</span><span class="o">=</span><span class="kc">None</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">optimizer</span> <span class="o">==</span> <span class="s2">&quot;fire&quot;</span><span class="p">:</span>
+            <span class="n">optimizer</span> <span class="o">=</span> <span class="n">ASE_Optimize</span><span class="o">.</span><span class="n">FIRE</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">restart</span><span class="o">=</span><span class="n">wd</span> <span class="o">/</span> <span class="s2">&quot;fire.json&quot;</span><span class="p">,</span> <span class="n">logfile</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">optimizer</span> <span class="o">==</span> <span class="s2">&quot;gpmin&quot;</span><span class="p">:</span>
+            <span class="n">optimizer</span> <span class="o">=</span> <span class="n">ASE_Optimize</span><span class="o">.</span><span class="n">GPMin</span><span class="p">(</span>
+                <span class="n">atoms</span><span class="p">,</span> <span class="n">restart</span><span class="o">=</span><span class="n">wd</span> <span class="o">/</span> <span class="s2">&quot;gpmin.json&quot;</span><span class="p">,</span> <span class="n">logfile</span><span class="o">=</span><span class="kc">None</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">optimizer</span> <span class="o">==</span> <span class="s2">&quot;mdmin&quot;</span><span class="p">:</span>
+            <span class="n">optimizer</span> <span class="o">=</span> <span class="n">ASE_Optimize</span><span class="o">.</span><span class="n">MDMin</span><span class="p">(</span>
+                <span class="n">atoms</span><span class="p">,</span> <span class="n">restart</span><span class="o">=</span><span class="n">wd</span> <span class="o">/</span> <span class="s2">&quot;mdmin.json&quot;</span><span class="p">,</span> <span class="n">logfile</span><span class="o">=</span><span class="kc">None</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">optimizer</span> <span class="o">==</span> <span class="s2">&quot;bfgslinesearch&quot;</span><span class="p">:</span>
+            <span class="n">optimizer</span> <span class="o">=</span> <span class="n">ASE_Optimize</span><span class="o">.</span><span class="n">BFGSLineSearch</span><span class="p">(</span>
+                <span class="n">atoms</span><span class="p">,</span> <span class="n">restart</span><span class="o">=</span><span class="n">wd</span> <span class="o">/</span> <span class="s2">&quot;bfgsline.json&quot;</span><span class="p">,</span> <span class="n">logfile</span><span class="o">=</span><span class="kc">None</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">optimizer</span> <span class="o">==</span> <span class="s2">&quot;lbfgslinesearch&quot;</span><span class="p">:</span>
+            <span class="n">optimizer</span> <span class="o">=</span> <span class="n">ASE_Optimize</span><span class="o">.</span><span class="n">LBFGSLineSearch</span><span class="p">(</span>
+                <span class="n">atoms</span><span class="p">,</span> <span class="n">restart</span><span class="o">=</span><span class="n">wd</span> <span class="o">/</span> <span class="s2">&quot;lbfgsline.json&quot;</span><span class="p">,</span> <span class="n">logfile</span><span class="o">=</span><span class="kc">None</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Unknown optimizer &#39;</span><span class="si">{</span><span class="n">optimizer</span><span class="si">}</span><span class="s2">&#39; (</span><span class="si">{</span><span class="n">P</span><span class="p">[</span><span class="s1">&#39;optimizer&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">) in Structure&quot;</span>
+            <span class="p">)</span>
+
+        <span class="n">convergence</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="s2">&quot;Maximum atomic gradient criterion&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">m_as</span><span class="p">(</span><span class="s2">&quot;eV/Å&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s2">&quot;natoms&quot;</span> <span class="ow">in</span> <span class="n">max_steps</span><span class="p">:</span>
+            <span class="n">tmp</span> <span class="o">=</span> <span class="n">max_steps</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+            <span class="k">if</span> <span class="s2">&quot;natoms&quot;</span> <span class="ow">in</span> <span class="n">tmp</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="n">max_steps</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">tmp</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">max_steps</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">tmp</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+
+        <span class="c1"># Run the optimization</span>
+        <span class="n">exception</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">converged</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">fmax</span><span class="o">=</span><span class="n">convergence</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="n">max_steps</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exception</span><span class="p">:</span>  <span class="c1"># noqa: F841</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Exception: </span><span class="si">{</span><span class="n">exception</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">converged</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;converged&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">converged</span>
+
+        <span class="c1"># Clean up the subdirectories</span>
+        <span class="k">if</span> <span class="n">exception</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">converged</span><span class="p">:</span>
+            <span class="n">keep</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="s2">&quot;on error&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">keep</span> <span class="o">==</span> <span class="s2">&quot;delete all subdirectories&quot;</span><span class="p">:</span>
+                <span class="n">subdirectories</span> <span class="o">=</span> <span class="n">wd</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;step_*&quot;</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">subdirectory</span> <span class="ow">in</span> <span class="n">subdirectories</span><span class="p">:</span>
+                    <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">subdirectory</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">keep</span> <span class="o">==</span> <span class="s2">&quot;keep last subdirectory&quot;</span><span class="p">:</span>
+                <span class="n">subdirectories</span> <span class="o">=</span> <span class="n">wd</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;step_*&quot;</span><span class="p">)</span>
+                <span class="n">subdirectories</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">subdirectories</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">subdirectory</span> <span class="ow">in</span> <span class="n">subdirectories</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                    <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">subdirectory</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">converged</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Optimization did not converge in </span><span class="si">{</span><span class="n">max_steps</span><span class="si">}</span><span class="s2"> steps&quot;</span>
+                <span class="p">)</span>
+            <span class="k">raise</span> <span class="n">exception</span> <span class="kn">from</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">keep</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="s2">&quot;on success&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">keep</span> <span class="o">==</span> <span class="s2">&quot;delete all subdirectories&quot;</span><span class="p">:</span>
+                <span class="n">subdirectories</span> <span class="o">=</span> <span class="n">wd</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;step_*&quot;</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">subdirectory</span> <span class="ow">in</span> <span class="n">subdirectories</span><span class="p">:</span>
+                    <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">subdirectory</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">keep</span> <span class="o">==</span> <span class="s2">&quot;keep last subdirectory&quot;</span><span class="p">:</span>
+                <span class="n">subdirectories</span> <span class="o">=</span> <span class="n">wd</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;step_*&quot;</span><span class="p">)</span>
+                <span class="n">subdirectories</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">subdirectories</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">subdirectory</span> <span class="ow">in</span> <span class="n">subdirectories</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                    <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">subdirectory</span><span class="p">)</span></div>
+</div>
+
 </pre></div>
 
                 </article>

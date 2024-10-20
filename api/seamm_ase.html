@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>seamm_ase package &#8212; SEAMM-ASE Connector 2024.8.17 documentation</title>
+    <title>seamm_ase package &#8212; SEAMM-ASE Connector 2024.10.20 documentation</title>
   
   
   
@@ -38,8 +38,8 @@
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=53a1b1fa"></script>
-    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/documentation_options.js?v=b88505f4"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=f281be69"></script>
@@ -480,6 +480,88 @@ document.write(`
 <section id="module-seamm_ase.seamm_ase">
 <span id="seamm-ase-seamm-ase-module"></span><h2>seamm_ase.seamm_ase module<a class="headerlink" href="#module-seamm_ase.seamm_ase" title="Link to this heading">#</a></h2>
 <dl class="py class">
+<dt class="sig sig-object py" id="seamm_ase.seamm_ase.ASE_mixin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">seamm_ase.seamm_ase.</span></span><span class="sig-name descname"><span class="pre">ASE_mixin</span></span><a class="reference internal" href="../_modules/seamm_ase/seamm_ase.html#ASE_mixin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seamm_ase.seamm_ase.ASE_mixin" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A mix-in class for connnecting with ASE methods and calculators.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="seamm_ase.seamm_ase.ASE_mixin.ase_atoms">
+<span class="sig-name descname"><span class="pre">ase_atoms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">configuration</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/seamm_ase/seamm_ase.html#ASE_mixin.ase_atoms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seamm_ase.seamm_ase.ASE_mixin.ase_atoms" title="Link to this definition">#</a></dt>
+<dd><p>Return an ASE Atoms object for the configuration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>configuration</strong> (<em>molsystem._Configuration</em>) – The configuration</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>atoms</strong> – The ASE Atoms object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ase.Atoms()</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="seamm_ase.seamm_ase.ASE_mixin.ase_calculator">
+<span class="sig-name descname"><span class="pre">ase_calculator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calculator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">properties</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['energy']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">system_changes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['positions',</span> <span class="pre">'numbers',</span> <span class="pre">'cell',</span> <span class="pre">'pbc',</span> <span class="pre">'initial_charges',</span> <span class="pre">'initial_magmoms']</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/seamm_ase/seamm_ase.html#ASE_mixin.ase_calculator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seamm_ase.seamm_ase.ASE_mixin.ase_calculator" title="Link to this definition">#</a></dt>
+<dd><p>Create a calculator for the structure step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ase</strong> (<em>ase.calculators.calculator.Calculator</em>) – The ASE calculator we are working for</p></li>
+<li><p><strong>properties</strong> (<em>list</em><em> of </em><em>str</em>) – The properties to calculate.</p></li>
+<li><p><strong>system_changes</strong> (<em>int</em>) – The changes to the system.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>results</strong> – The dictionary of results from the calculation.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="seamm_ase.seamm_ase.ASE_mixin.ase_read_bibliography">
+<span class="sig-name descname"><span class="pre">ase_read_bibliography</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/seamm_ase/seamm_ase.html#ASE_mixin.ase_read_bibliography"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seamm_ase.seamm_ase.ASE_mixin.ase_read_bibliography" title="Link to this definition">#</a></dt>
+<dd><p>Read the bibliography from a file and add to the local bibliography</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="seamm_ase.seamm_ase.ASE_mixin.run_ase_Hessian">
+<span class="sig-name descname"><span class="pre">run_ase_Hessian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">step_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'keep</span> <span class="pre">last</span> <span class="pre">subdirectory'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_success</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'delete</span> <span class="pre">all</span> <span class="pre">subdirectories'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/seamm_ase/seamm_ase.html#ASE_mixin.run_ase_Hessian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seamm_ase.seamm_ase.ASE_mixin.run_ase_Hessian" title="Link to this definition">#</a></dt>
+<dd><p>Run ASE to get the Hessian</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>step_size</strong> (<em>float</em>) – The finite-difference step, in Angstrom</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>vibrations</strong></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ASE VibrationsData() object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="seamm_ase.seamm_ase.ASE_mixin.run_ase_optimizer">
+<span class="sig-name descname"><span class="pre">run_ase_optimizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PP</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/seamm_ase/seamm_ase.html#ASE_mixin.run_ase_optimizer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seamm_ase.seamm_ase.ASE_mixin.run_ase_optimizer" title="Link to this definition">#</a></dt>
+<dd><p>Run a Structure step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>P</strong> (<em>dict</em>) – The current values of the parameters</p></li>
+<li><p><strong>PP</strong> (<em>dict</em>) – The current values of the parameters, formatted for printing</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="seamm_ase.seamm_ase.SEAMM_Calculator">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">seamm_ase.seamm_ase.</span></span><span class="sig-name descname"><span class="pre">SEAMM_Calculator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">step</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calculator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">configuration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/seamm_ase/seamm_ase.html#SEAMM_Calculator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#seamm_ase.seamm_ase.SEAMM_Calculator" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Calculator</span></code></p>
@@ -635,6 +717,14 @@ calculator.</p>
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-seamm_ase.seamm_ase">seamm_ase.seamm_ase module</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#seamm_ase.seamm_ase.ASE_mixin"><code class="docutils literal notranslate"><span class="pre">ASE_mixin</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#seamm_ase.seamm_ase.ASE_mixin.ase_atoms"><code class="docutils literal notranslate"><span class="pre">ASE_mixin.ase_atoms()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#seamm_ase.seamm_ase.ASE_mixin.ase_calculator"><code class="docutils literal notranslate"><span class="pre">ASE_mixin.ase_calculator()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#seamm_ase.seamm_ase.ASE_mixin.ase_read_bibliography"><code class="docutils literal notranslate"><span class="pre">ASE_mixin.ase_read_bibliography()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#seamm_ase.seamm_ase.ASE_mixin.run_ase_Hessian"><code class="docutils literal notranslate"><span class="pre">ASE_mixin.run_ase_Hessian()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#seamm_ase.seamm_ase.ASE_mixin.run_ase_optimizer"><code class="docutils literal notranslate"><span class="pre">ASE_mixin.run_ase_optimizer()</span></code></a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#seamm_ase.seamm_ase.SEAMM_Calculator"><code class="docutils literal notranslate"><span class="pre">SEAMM_Calculator</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#seamm_ase.seamm_ase.SEAMM_Calculator.calculate"><code class="docutils literal notranslate"><span class="pre">SEAMM_Calculator.calculate()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#seamm_ase.seamm_ase.SEAMM_Calculator.check_state"><code class="docutils literal notranslate"><span class="pre">SEAMM_Calculator.check_state()</span></code></a></li>
