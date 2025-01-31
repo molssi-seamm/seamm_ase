@@ -512,10 +512,14 @@ class ASE_mixin:
         exception = None
         try:
             vibrations.run()
+            result = vibrations.get_vibrations()
         except Exception as e:  # noqa: F841
             exception = e
             caught_error = True
-            print(f"Exception: {exception}")
+            text = "".join(traceback.format_exception(e))
+            printer.important(
+                f"Exception in the finite-difference calculation!\n\n{text}"
+            )
 
         # Clean up the subdirectories
         if caught_error:
@@ -540,7 +544,7 @@ class ASE_mixin:
                 for subdirectory in subdirectories[:-1]:
                     shutil.rmtree(subdirectory)
 
-        return vibrations.get_vibrations()
+        return result
 
     def run_ase_optimizer(self, P, PP):
         """Run a Structure step.
