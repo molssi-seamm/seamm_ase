@@ -1,6 +1,10 @@
 =======
 History
 =======
+2025.2.7 -- Bugfix: incorrect handling of directories in the calculator
+    * There was a bug in the deletion of directories on success or on error. This has
+      been fixed.
+      
 2025.1.31 -- Improved error reporting.
     * Caught more errors and provided more informative error messages
       
