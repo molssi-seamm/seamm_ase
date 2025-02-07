@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>seamm_ase.seamm_ase &#8212; SEAMM-ASE Connector 2025.1.31 documentation</title>
+    <title>seamm_ase.seamm_ase &#8212; SEAMM-ASE Connector 2025.2.7 documentation</title>
   
   
   
@@ -40,7 +40,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="../../_static/documentation_options.js?v=ee7a4df6"></script>
+    <script src="../../_static/documentation_options.js?v=3c0199e2"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -51,7 +51,7 @@
     <link rel="search" title="Search" href="../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="2025.1.31" />
+  <meta name="docsearch:version" content="2025.2.7" />
   </head>
   
   
@@ -982,22 +982,22 @@
 
         <span class="c1"># Clean up the subdirectories</span>
         <span class="k">if</span> <span class="n">caught_error</span><span class="p">:</span>
-            <span class="k">if</span> <span class="s2">&quot;all&quot;</span> <span class="ow">in</span> <span class="n">on_error</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">&quot;delete all&quot;</span> <span class="ow">in</span> <span class="n">on_error</span><span class="p">:</span>
                 <span class="n">subdirectories</span> <span class="o">=</span> <span class="n">wd</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;step_*&quot;</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">subdirectory</span> <span class="ow">in</span> <span class="n">subdirectories</span><span class="p">:</span>
                     <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">subdirectory</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="s2">&quot;last&quot;</span> <span class="ow">in</span> <span class="n">on_error</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="s2">&quot;keep last&quot;</span> <span class="ow">in</span> <span class="n">on_error</span><span class="p">:</span>
                 <span class="n">subdirectories</span> <span class="o">=</span> <span class="n">wd</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;step_*&quot;</span><span class="p">)</span>
                 <span class="n">subdirectories</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">subdirectories</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">subdirectory</span> <span class="ow">in</span> <span class="n">subdirectories</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
                     <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">subdirectory</span><span class="p">)</span>
             <span class="k">raise</span> <span class="n">exception</span> <span class="kn">from</span><span class="w"> </span><span class="kc">None</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">if</span> <span class="s2">&quot;all&quot;</span> <span class="ow">in</span> <span class="n">on_success</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">&quot;delete all&quot;</span> <span class="ow">in</span> <span class="n">on_success</span><span class="p">:</span>
                 <span class="n">subdirectories</span> <span class="o">=</span> <span class="n">wd</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;step_*&quot;</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">subdirectory</span> <span class="ow">in</span> <span class="n">subdirectories</span><span class="p">:</span>
                     <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">subdirectory</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="s2">&quot;last&quot;</span> <span class="ow">in</span> <span class="n">on_success</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="s2">&quot;keep last&quot;</span> <span class="ow">in</span> <span class="n">on_success</span><span class="p">:</span>
                 <span class="n">subdirectories</span> <span class="o">=</span> <span class="n">wd</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;step_*&quot;</span><span class="p">)</span>
                 <span class="n">subdirectories</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">subdirectories</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">subdirectory</span> <span class="ow">in</span> <span class="n">subdirectories</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
