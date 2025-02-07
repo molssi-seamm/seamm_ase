@@ -523,22 +523,22 @@ class ASE_mixin:
 
         # Clean up the subdirectories
         if caught_error:
-            if "all" in on_error:
+            if "delete all" in on_error:
                 subdirectories = wd.glob("step_*")
                 for subdirectory in subdirectories:
                     shutil.rmtree(subdirectory)
-            elif "last" in on_error:
+            elif "keep last" in on_error:
                 subdirectories = wd.glob("step_*")
                 subdirectories = sorted(subdirectories)
                 for subdirectory in subdirectories[:-1]:
                     shutil.rmtree(subdirectory)
             raise exception from None
         else:
-            if "all" in on_success:
+            if "delete all" in on_success:
                 subdirectories = wd.glob("step_*")
                 for subdirectory in subdirectories:
                     shutil.rmtree(subdirectory)
-            elif "last" in on_success:
+            elif "keep last" in on_success:
                 subdirectories = wd.glob("step_*")
                 subdirectories = sorted(subdirectories)
                 for subdirectory in subdirectories[:-1]:
