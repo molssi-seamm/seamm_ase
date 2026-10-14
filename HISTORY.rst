@@ -1,6 +1,15 @@
 =======
 History
 =======
+2026.10.14 -- Bugfix: periodic structures were passed to ASE without their cell
+    * The ASE Atoms made from a periodic configuration had no cell or periodic boundary
+      conditions, and their positions were the fractional coordinates read as
+      Cartesian. Periodic configurations now carry their cell and Cartesian positions,
+      and every configuration carries its net charge and spin multiplicity in
+      ``atoms.info``. Molecular configurations are unchanged.
+    * Internal: the continuous integration now installs the package and its declared
+      dependencies with uv instead of a conda environment.
+
 2025.2.7 -- Bugfix: incorrect handling of directories in the calculator
     * There was a bug in the deletion of directories on success or on error. This has
       been fixed.

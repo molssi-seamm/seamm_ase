@@ -72,11 +72,7 @@ class SEAMM_Calculator(ASE_Calculator):
     .. code-block:: python
 
         ...
-        symbols = configuration.atoms.symbols
-        XYZ = configuration.atoms.coordinates
-
-        calculator = SEAMM_Calculator(self)
-        atoms = ASE_Atoms("".join(symbols), positions=XYZ, calculator=calculator)
+        atoms = self.ase_atoms(configuration)  # from ASE_mixin; uses SEAMM_Calculator
         ...
 
     The step can then call the calculate method of the SEAMM_Calculator to perform the
@@ -187,13 +183,28 @@ class ASE_mixin:
         Returns
         -------
         atoms : ase.Atoms()
-            The ASE Atoms object.
+            The ASE Atoms object, with Cartesian positions (Å) and, for a periodic
+            configuration, its cell and periodic boundary conditions. The net charge
+            and spin multiplicity are in ``atoms.info`` (``charge`` and
+            ``spin_multiplicity``).
         """
         symbols = configuration.atoms.symbols
-        XYZ = configuration.atoms.coordinates
+        # Cartesian whatever the configuration's coordinate system: a periodic
+        # configuration may hold fractional coordinates
+        XYZ = configuration.atoms.get_coordinates(fractionals=False)
 
         calculator = SEAMM_Calculator(self)
-        atoms = ASE_Atoms("".join(symbols), positions=XYZ, calculator=calculator)
+        atoms = ASE_Atoms(symbols=list(symbols), positions=XYZ, calculator=calculator)
+        if configuration.periodicity == 3:
+            atoms.set_cell(configuration.cell.vectors())
+            atoms.set_pbc(True)
+        elif configuration.periodicity != 0:
+            raise NotImplementedError(
+                f"Configurations with periodicity {configuration.periodicity} are not "
+                "supported"
+            )
+        atoms.info["charge"] = configuration.charge
+        atoms.info["spin_multiplicity"] = configuration.spin_multiplicity
 
         return atoms
 
