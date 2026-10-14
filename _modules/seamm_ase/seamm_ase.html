@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -7,7 +6,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>seamm_ase.seamm_ase &#8212; SEAMM-ASE Connector 2025.2.7 documentation</title>
+    <title>seamm_ase.seamm_ase &#8212; SEAMM-ASE Connector 2026.10.14 documentation</title>
   
   
   
@@ -26,8 +25,8 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=18bd87630a240e9c25be" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -35,37 +34,45 @@
     <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=c224919a" />
   
   <!-- So that users can add custom icons -->
-  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="../../_static/scripts/fontawesome.js?digest=18bd87630a240e9c25be"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
-    <script src="../../_static/documentation_options.js?v=3c0199e2"></script>
-    <script src="../../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/documentation_options.js?v=c92e1e03"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/seamm_ase/seamm_ase';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light dark"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="2025.2.7" />
+  <meta name="docsearch:version" content="2026.10.14" />
+  
+    
+    <script src="../../_static/searchtools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../searchindex.js"></script>
+  
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
-
+  <body data-default-mode="">
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
+  
+  
+  
   
   <dialog id="pst-search-dialog">
     
@@ -91,9 +98,9 @@
 </div>
 
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
 <div class="bd-header__inner bd-page-width">
-  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+  <button type="button" class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
     <span class="fa-solid fa-bars"></span>
   </button>
   
@@ -197,7 +204,7 @@
         <div class="navbar-item navbar-persistent--container">
           
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
  <i class="fa-solid fa-magnifying-glass"></i>
  <span class="search-button__default-text">Search</span>
  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -207,11 +214,18 @@
       
         <div class="navbar-item">
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
       
         <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -224,8 +238,7 @@
           
           
           
-          <a href="https://github.com/molssi-seamm/seamm_ase" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
-            <span class="sr-only">GitHub</span></a>
+          <a href="https://github.com/molssi-seamm/seamm_ase" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
         <li class="nav-item">
           
@@ -236,8 +249,7 @@
           
           
           
-          <a href="https://twitter.com/MolSSI_NSF" title="Twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-twitter fa-lg" aria-hidden="true"></i>
-            <span class="sr-only">Twitter</span></a>
+          <a href="https://twitter.com/MolSSI_NSF" title="Twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-twitter fa-lg" aria-hidden="true"></i><span class="visually-hidden">Twitter</span></a>
         </li>
 </ul></div>
       
@@ -248,7 +260,7 @@
   
     <div class="navbar-persistent--mobile">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button type="button" class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
  <i class="fa-solid fa-magnifying-glass"></i>
  <span class="search-button__default-text">Search</span>
  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
@@ -338,11 +350,18 @@
         
           <div class="navbar-item">
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button></div>
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button type="button" class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button type="button" class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
         
           <div class="navbar-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
@@ -355,8 +374,7 @@
           
           
           
-          <a href="https://github.com/molssi-seamm/seamm_ase" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
-            <span class="sr-only">GitHub</span></a>
+          <a href="https://github.com/molssi-seamm/seamm_ase" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
         </li>
         <li class="nav-item">
           
@@ -367,8 +385,7 @@
           
           
           
-          <a href="https://twitter.com/MolSSI_NSF" title="Twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-twitter fa-lg" aria-hidden="true"></i>
-            <span class="sr-only">Twitter</span></a>
+          <a href="https://twitter.com/MolSSI_NSF" title="Twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-twitter fa-lg" aria-hidden="true"></i><span class="visually-hidden">Twitter</span></a>
         </li>
 </ul></div>
         
@@ -434,7 +451,7 @@
   <h1>Source code for seamm_ase.seamm_ase</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ASE_mixin&quot;</span><span class="p">,</span> <span class="s2">&quot;SEAMM_Calculator&quot;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"ASE_mixin"</span><span class="p">,</span> <span class="s2">"SEAMM_Calculator"</span><span class="p">]</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">calendar</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
@@ -466,13 +483,13 @@
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 <span class="n">job</span> <span class="o">=</span> <span class="n">printing</span><span class="o">.</span><span class="n">getPrinter</span><span class="p">()</span>
-<span class="n">printer</span> <span class="o">=</span> <span class="n">printing</span><span class="o">.</span><span class="n">getPrinter</span><span class="p">(</span><span class="s2">&quot;ASE&quot;</span><span class="p">)</span>
+<span class="n">printer</span> <span class="o">=</span> <span class="n">printing</span><span class="o">.</span><span class="n">getPrinter</span><span class="p">(</span><span class="s2">"ASE"</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="SEAMM_Calculator">
 <a class="viewcode-back" href="../../api/seamm_ase.html#seamm_ase.seamm_ase.SEAMM_Calculator">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">SEAMM_Calculator</span><span class="p">(</span><span class="n">ASE_Calculator</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generic ASE calculator for SEAMM.</span>
+<span class="w">    </span><span class="sd">"""Generic ASE calculator for SEAMM.</span>
 
 <span class="sd">    This is a generic calculator that can be used from any step in</span>
 <span class="sd">    SEAMM to use functionality in ASE.</span>
@@ -484,10 +501,10 @@
 <span class="sd">        def calculator(</span>
 <span class="sd">            self,</span>
 <span class="sd">            calculator,</span>
-<span class="sd">            properties=[&quot;energy&quot;],</span>
+<span class="sd">            properties=["energy"],</span>
 <span class="sd">            system_changes=ASE_all_changes,</span>
 <span class="sd">        ):</span>
-<span class="sd">            \&quot;&quot;&quot;</span><span class="n">Create</span> <span class="n">a</span> <span class="n">calculator</span> <span class="k">for</span> <span class="n">the</span> <span class="n">structure</span> <span class="n">step</span><span class="o">.</span>
+<span class="sd">            \"""</span><span class="n">Create</span> <span class="n">a</span> <span class="n">calculator</span> <span class="k">for</span> <span class="n">the</span> <span class="n">structure</span> <span class="n">step</span><span class="o">.</span>
 
             <span class="n">Parameters</span>
             <span class="o">----------</span>
@@ -497,7 +514,7 @@
                 <span class="n">The</span> <span class="n">properties</span> <span class="n">to</span> <span class="n">calculate</span><span class="o">.</span>
             <span class="n">system_changes</span> <span class="p">:</span> <span class="nb">int</span>
                 <span class="n">The</span> <span class="n">changes</span> <span class="n">to</span> <span class="n">the</span> <span class="n">system</span><span class="o">.</span>
-            \<span class="s2">&quot;&quot;&quot;</span>
+            \<span class="s2">"""</span>
 <span class="s2">        ...</span>
 
 <span class="s2">    An example can be found in the Structure step.</span>
@@ -508,19 +525,15 @@
 <span class="s2">    .. code-block:: python</span>
 
 <span class="s2">        ...</span>
-<span class="s2">        symbols = configuration.atoms.symbols</span>
-<span class="s2">        XYZ = configuration.atoms.coordinates</span>
-
-<span class="s2">        calculator = SEAMM_Calculator(self)</span>
-<span class="s2">        atoms = ASE_Atoms(&quot;&quot;.join(symbols), positions=XYZ, calculator=calculator)</span>
+<span class="s2">        atoms = self.ase_atoms(configuration)  # from ASE_mixin; uses SEAMM_Calculator</span>
 <span class="s2">        ...</span>
 
 <span class="s2">    The step can then call the calculate method of the SEAMM_Calculator to perform the</span>
 <span class="s2">    calculation, or can pass the calculator to other ASE drivers that will use the</span>
 <span class="s2">    calculator.</span>
-<span class="s2">    &quot;&quot;&quot;</span>
+<span class="s2">    """</span>
 
-    <span class="n">implemented_properties</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;energy&quot;</span><span class="p">,</span> <span class="s2">&quot;forces&quot;</span><span class="p">]</span>
+    <span class="n">implemented_properties</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"energy"</span><span class="p">,</span> <span class="s2">"forces"</span><span class="p">]</span>
     <span class="n">nolabel</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
@@ -531,7 +544,7 @@
         <span class="n">configuration</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        step : seamm.Node</span>
@@ -539,7 +552,7 @@
 
 <span class="sd">        **kwargs</span>
 <span class="sd">            The keyword arguments are passed to the parent class.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">step</span> <span class="o">=</span> <span class="n">step</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">calculator</span> <span class="o">=</span> <span class="n">calculator</span>  <span class="c1"># Method or function to call</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
@@ -549,14 +562,14 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;The configuration this calculator represents.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""The configuration this calculator represents."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_configuration</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;A name for this calculator.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""A name for this calculator."""</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">configuration</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">name</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">"/"</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">name</span>
             <span class="k">return</span> <span class="n">name</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
@@ -566,10 +579,10 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">calculate</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">atoms</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">properties</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;energy&quot;</span><span class="p">,</span> <span class="s2">&quot;forces&quot;</span><span class="p">],</span>
+        <span class="n">properties</span><span class="o">=</span><span class="p">[</span><span class="s2">"energy"</span><span class="p">,</span> <span class="s2">"forces"</span><span class="p">],</span>
         <span class="n">system_changes</span><span class="o">=</span><span class="n">ASE_all_changes</span><span class="p">,</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform the calculation.</span>
+<span class="w">        </span><span class="sd">"""Perform the calculation.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -584,12 +597,12 @@
 <span class="sd">        -------</span>
 <span class="sd">        dict</span>
 <span class="sd">            The results of the calculation.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">calculate</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">properties</span><span class="p">,</span> <span class="n">system_changes</span><span class="p">)</span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SEAMM_Calculator.calculate </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">properties</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    </span><span class="si">{</span><span class="n">system_changes</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    </span><span class="si">{</span><span class="n">atoms</span><span class="w"> </span><span class="ow">is</span><span class="w"> </span><span class="kc">None</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"SEAMM_Calculator.calculate </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">properties</span><span class="si">=}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"    </span><span class="si">{</span><span class="n">system_changes</span><span class="si">=}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"    </span><span class="si">{</span><span class="n">atoms</span><span class="w"> </span><span class="ow">is</span><span class="w"> </span><span class="kc">None</span><span class="si">=}</span><span class="s2">"</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">step</span><span class="o">.</span><span class="n">ase_calculator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">properties</span><span class="p">,</span> <span class="n">system_changes</span><span class="p">)</span>
@@ -600,14 +613,14 @@
 <div class="viewcode-block" id="SEAMM_Calculator.check_state">
 <a class="viewcode-back" href="../../api/seamm_ase.html#seamm_ase.seamm_ase.SEAMM_Calculator.check_state">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">check_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">atoms</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check for any system changes since last calculation.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Check for any system changes since last calculation."""</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">check_state</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="n">tol</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="SEAMM_Calculator.get_property">
 <a class="viewcode-back" href="../../api/seamm_ase.html#seamm_ase.seamm_ase.SEAMM_Calculator.get_property">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_property</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">atoms</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allow_calculation</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SEAMM_Calculator.get_property </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">name</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"SEAMM_Calculator.get_property </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">name</span><span class="si">=}</span><span class="s2">"</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_property</span><span class="p">(</span>
             <span class="n">name</span><span class="p">,</span> <span class="n">atoms</span><span class="o">=</span><span class="n">atoms</span><span class="p">,</span> <span class="n">allow_calculation</span><span class="o">=</span><span class="n">allow_calculation</span>
@@ -616,18 +629,18 @@
 
 
 
-<span class="n">register_calculator_class</span><span class="p">(</span><span class="s2">&quot;seamm&quot;</span><span class="p">,</span> <span class="n">SEAMM_Calculator</span><span class="p">)</span>
+<span class="n">register_calculator_class</span><span class="p">(</span><span class="s2">"seamm"</span><span class="p">,</span> <span class="n">SEAMM_Calculator</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="ASE_mixin">
 <a class="viewcode-back" href="../../api/seamm_ase.html#seamm_ase.seamm_ase.ASE_mixin">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ASE_mixin</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A mix-in class for connnecting with ASE methods and calculators.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""A mix-in class for connnecting with ASE methods and calculators."""</span>
 
 <div class="viewcode-block" id="ASE_mixin.ase_atoms">
 <a class="viewcode-back" href="../../api/seamm_ase.html#seamm_ase.seamm_ase.ASE_mixin.ase_atoms">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">ase_atoms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configuration</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return an ASE Atoms object for the configuration.</span>
+<span class="w">        </span><span class="sd">"""Return an ASE Atoms object for the configuration.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -637,13 +650,28 @@
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        atoms : ase.Atoms()</span>
-<span class="sd">            The ASE Atoms object.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">            The ASE Atoms object, with Cartesian positions (Å) and, for a periodic</span>
+<span class="sd">            configuration, its cell and periodic boundary conditions. The net charge</span>
+<span class="sd">            and spin multiplicity are in ``atoms.info`` (``charge`` and</span>
+<span class="sd">            ``spin_multiplicity``).</span>
+<span class="sd">        """</span>
         <span class="n">symbols</span> <span class="o">=</span> <span class="n">configuration</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">symbols</span>
-        <span class="n">XYZ</span> <span class="o">=</span> <span class="n">configuration</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">coordinates</span>
+        <span class="c1"># Cartesian whatever the configuration's coordinate system: a periodic</span>
+        <span class="c1"># configuration may hold fractional coordinates</span>
+        <span class="n">XYZ</span> <span class="o">=</span> <span class="n">configuration</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">get_coordinates</span><span class="p">(</span><span class="n">fractionals</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
         <span class="n">calculator</span> <span class="o">=</span> <span class="n">SEAMM_Calculator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="n">atoms</span> <span class="o">=</span> <span class="n">ASE_Atoms</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">symbols</span><span class="p">),</span> <span class="n">positions</span><span class="o">=</span><span class="n">XYZ</span><span class="p">,</span> <span class="n">calculator</span><span class="o">=</span><span class="n">calculator</span><span class="p">)</span>
+        <span class="n">atoms</span> <span class="o">=</span> <span class="n">ASE_Atoms</span><span class="p">(</span><span class="n">symbols</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">symbols</span><span class="p">),</span> <span class="n">positions</span><span class="o">=</span><span class="n">XYZ</span><span class="p">,</span> <span class="n">calculator</span><span class="o">=</span><span class="n">calculator</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">configuration</span><span class="o">.</span><span class="n">periodicity</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">atoms</span><span class="o">.</span><span class="n">set_cell</span><span class="p">(</span><span class="n">configuration</span><span class="o">.</span><span class="n">cell</span><span class="o">.</span><span class="n">vectors</span><span class="p">())</span>
+            <span class="n">atoms</span><span class="o">.</span><span class="n">set_pbc</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">configuration</span><span class="o">.</span><span class="n">periodicity</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Configurations with periodicity </span><span class="si">{</span><span class="n">configuration</span><span class="o">.</span><span class="n">periodicity</span><span class="si">}</span><span class="s2"> are not "</span>
+                <span class="s2">"supported"</span>
+            <span class="p">)</span>
+        <span class="n">atoms</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s2">"charge"</span><span class="p">]</span> <span class="o">=</span> <span class="n">configuration</span><span class="o">.</span><span class="n">charge</span>
+        <span class="n">atoms</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s2">"spin_multiplicity"</span><span class="p">]</span> <span class="o">=</span> <span class="n">configuration</span><span class="o">.</span><span class="n">spin_multiplicity</span>
 
         <span class="k">return</span> <span class="n">atoms</span></div>
 
@@ -653,10 +681,10 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">ase_calculator</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">calculator</span><span class="p">,</span>
-        <span class="n">properties</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;energy&quot;</span><span class="p">],</span>
+        <span class="n">properties</span><span class="o">=</span><span class="p">[</span><span class="s2">"energy"</span><span class="p">],</span>
         <span class="n">system_changes</span><span class="o">=</span><span class="n">ASE_all_changes</span><span class="p">,</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a calculator for the structure step.</span>
+<span class="w">        </span><span class="sd">"""Create a calculator for the structure step.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -671,24 +699,24 @@
 <span class="sd">        -------</span>
 <span class="sd">        results : dict</span>
 <span class="sd">            The dictionary of results from the calculation.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">wd</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="p">)</span>
         <span class="n">wd</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_step</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;nsteps&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_step</span>
-        <span class="k">if</span> <span class="s2">&quot;step&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s2">&quot;step&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_step</span><span class="p">)</span>
-        <span class="n">fmt</span> <span class="o">=</span> <span class="s2">&quot;05d&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">"nsteps"</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_step</span>
+        <span class="k">if</span> <span class="s2">"step"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s2">"step"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_step</span><span class="p">)</span>
+        <span class="n">fmt</span> <span class="o">=</span> <span class="s2">"05d"</span>
 
         <span class="n">calculator</span><span class="o">.</span><span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="n">n_atoms</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">calculator</span><span class="o">.</span><span class="n">atoms</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">n_atoms</span><span class="si">}</span><span class="s2"> atoms in the structure&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">n_atoms</span><span class="si">}</span><span class="s2"> atoms in the structure"</span><span class="p">)</span>
         <span class="n">positions</span> <span class="o">=</span> <span class="n">calculator</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">positions</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Positions: </span><span class="si">{</span><span class="n">positions</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Positions: </span><span class="si">{</span><span class="n">positions</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="n">cell</span> <span class="o">=</span> <span class="n">calculator</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">cell</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cell: </span><span class="si">{</span><span class="n">cell</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Cell: </span><span class="si">{</span><span class="n">cell</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
         <span class="c1"># Set the coordinates in the configuration</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_working_configuration</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">set_coordinates</span><span class="p">(</span><span class="n">positions</span><span class="p">,</span> <span class="n">fractionals</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -699,7 +727,7 @@
         <span class="k">for</span> <span class="n">handler</span> <span class="ow">in</span> <span class="n">job</span><span class="o">.</span><span class="n">handlers</span><span class="p">:</span>
             <span class="k">if</span> <span class="p">(</span>
                 <span class="nb">isinstance</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="n">logging</span><span class="o">.</span><span class="n">FileHandler</span><span class="p">)</span>
-                <span class="ow">and</span> <span class="s2">&quot;job.out&quot;</span> <span class="ow">in</span> <span class="n">handler</span><span class="o">.</span><span class="n">baseFilename</span>
+                <span class="ow">and</span> <span class="s2">"job.out"</span> <span class="ow">in</span> <span class="n">handler</span><span class="o">.</span><span class="n">baseFilename</span>
             <span class="p">):</span>
                 <span class="n">job_handler</span> <span class="o">=</span> <span class="n">handler</span>
                 <span class="n">job_level</span> <span class="o">=</span> <span class="n">job_handler</span><span class="o">.</span><span class="n">level</span>
@@ -710,7 +738,7 @@
                 <span class="n">out_handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">printing</span><span class="o">.</span><span class="n">JOB</span><span class="p">)</span>
 
         <span class="c1"># Get the first real node</span>
-        <span class="n">first_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">subflowchart</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="s2">&quot;1&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+        <span class="n">first_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">subflowchart</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="s2">"1"</span><span class="p">)</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
 
         <span class="c1"># Ensure the nodes have their options</span>
         <span class="n">node</span> <span class="o">=</span> <span class="n">first_node</span>
@@ -722,7 +750,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">subflowchart</span><span class="o">.</span><span class="n">executor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">flowchart</span><span class="o">.</span><span class="n">executor</span>
 
         <span class="c1"># Direct most output to iteration.out</span>
-        <span class="n">step_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;step_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_step</span><span class="si">:{</span><span class="n">fmt</span><span class="si">}}</span><span class="s2">&quot;</span>
+        <span class="n">step_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"step_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_step</span><span class="si">:{</span><span class="n">fmt</span><span class="si">}}</span><span class="s2">"</span>
         <span class="n">step_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="p">)</span> <span class="o">/</span> <span class="n">step_id</span>
         <span class="n">step_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
@@ -730,11 +758,11 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file_handler</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_file_handler</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
             <span class="n">job</span><span class="o">.</span><span class="n">removeHandler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_handler</span><span class="p">)</span>
-        <span class="n">path</span> <span class="o">=</span> <span class="n">step_dir</span> <span class="o">/</span> <span class="s2">&quot;Step.out&quot;</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">step_dir</span> <span class="o">/</span> <span class="s2">"Step.out"</span>
         <span class="n">path</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">missing_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_file_handler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">FileHandler</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_file_handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">printing</span><span class="o">.</span><span class="n">NORMAL</span><span class="p">)</span>
-        <span class="n">formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{message:s}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;{&quot;</span><span class="p">)</span>
+        <span class="n">formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="n">fmt</span><span class="o">=</span><span class="s2">"</span><span class="si">{message:s}</span><span class="s2">"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">"{"</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_file_handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>
         <span class="n">job</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_handler</span><span class="p">)</span>
 
@@ -748,15 +776,15 @@
             <span class="k">while</span> <span class="n">node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
         <span class="k">except</span> <span class="ne">DeprecationWarning</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="n">printer</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Deprecation warning: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="n">printer</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Deprecation warning: "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
             <span class="n">traceback</span><span class="o">.</span><span class="n">print_exc</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
             <span class="n">traceback</span><span class="o">.</span><span class="n">print_exc</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="n">printer</span><span class="o">.</span><span class="n">job</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Caught exception in step </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_step</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">step_dir</span> <span class="o">/</span> <span class="s2">&quot;stderr.out&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fd</span><span class="p">:</span>
+            <span class="n">printer</span><span class="o">.</span><span class="n">job</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Caught exception in step </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_step</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">step_dir</span> <span class="o">/</span> <span class="s2">"stderr.out"</span><span class="p">,</span> <span class="s2">"a"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fd</span><span class="p">:</span>
                 <span class="n">traceback</span><span class="o">.</span><span class="n">print_exc</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">fd</span><span class="p">)</span>
             <span class="k">raise</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;End of step </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_step</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"End of step </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_step</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
         <span class="c1"># Remove any redirection of printing.</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file_handler</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -769,12 +797,12 @@
             <span class="n">out_handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">out_level</span><span class="p">)</span>
 
         <span class="c1"># Get the energy and derivatives</span>
-        <span class="n">paths</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">step_dir</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;**/Results.json&quot;</span><span class="p">))</span>
+        <span class="n">paths</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">step_dir</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"**/Results.json"</span><span class="p">))</span>
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-                <span class="s2">&quot;There are no energy and gradients in properties.json for step &quot;</span>
-                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_step</span><span class="si">}</span><span class="s2"> in </span><span class="si">{</span><span class="n">step_dir</span><span class="si">}</span><span class="s2">.&quot;</span>
+                <span class="s2">"There are no energy and gradients in properties.json for step "</span>
+                <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_step</span><span class="si">}</span><span class="s2"> in </span><span class="si">{</span><span class="n">step_dir</span><span class="si">}</span><span class="s2">."</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># Find the most recent and assume that is the one wanted</span>
@@ -782,7 +810,7 @@
             <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
                 <span class="k">with</span> <span class="n">path</span><span class="o">.</span><span class="n">open</span><span class="p">()</span> <span class="k">as</span> <span class="n">fd</span><span class="p">:</span>
                     <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fd</span><span class="p">)</span>
-                <span class="n">time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">fromisoformat</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;iso time&quot;</span><span class="p">])</span>
+                <span class="n">time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">fromisoformat</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">"iso time"</span><span class="p">])</span>
                 <span class="k">if</span> <span class="n">newest_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="n">newest</span> <span class="o">=</span> <span class="n">path</span>
                     <span class="n">newest_time</span> <span class="o">=</span> <span class="n">time</span>
@@ -792,118 +820,118 @@
             <span class="k">with</span> <span class="n">newest</span><span class="o">.</span><span class="n">open</span><span class="p">()</span> <span class="k">as</span> <span class="n">fd</span><span class="p">:</span>
                 <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fd</span><span class="p">)</span>
 
-        <span class="n">energy</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;energy&quot;</span><span class="p">]</span>
-        <span class="k">if</span> <span class="s2">&quot;energy,units&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-            <span class="n">units</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;energy,units&quot;</span><span class="p">]</span>
+        <span class="n">energy</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">"energy"</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s2">"energy,units"</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="n">units</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">"energy,units"</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;kJ/mol&quot;</span>
-        <span class="k">if</span> <span class="s2">&quot;energy&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s2">&quot;energy&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">energy</span><span class="p">)</span>
+            <span class="n">units</span> <span class="o">=</span> <span class="s2">"kJ/mol"</span>
+        <span class="k">if</span> <span class="s2">"energy"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s2">"energy"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">energy</span><span class="p">)</span>
 
-        <span class="n">energy</span> <span class="o">*=</span> <span class="n">Q_</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">units</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;eV&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;energy&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Q_</span><span class="p">(</span><span class="n">energy</span><span class="p">,</span> <span class="s2">&quot;eV&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">m_as</span><span class="p">(</span><span class="s2">&quot;kJ/mol&quot;</span><span class="p">)</span>
+        <span class="n">energy</span> <span class="o">*=</span> <span class="n">Q_</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">units</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">"eV"</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">"energy"</span><span class="p">]</span> <span class="o">=</span> <span class="n">Q_</span><span class="p">(</span><span class="n">energy</span><span class="p">,</span> <span class="s2">"eV"</span><span class="p">)</span><span class="o">.</span><span class="n">m_as</span><span class="p">(</span><span class="s2">"kJ/mol"</span><span class="p">)</span>
 
-        <span class="n">gradients</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;gradients&quot;</span><span class="p">]</span>
+        <span class="n">gradients</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">"gradients"</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">gradients&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">gradients"</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_atoms</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;   </span><span class="si">{</span><span class="n">gradients</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">8.3f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">gradients</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">8.3f</span><span class="si">}</span><span class="s2"> &quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">gradients</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="si">:</span><span class="s2">8.3f</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="sa">f</span><span class="s2">"   </span><span class="si">{</span><span class="n">gradients</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">8.3f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">gradients</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">8.3f</span><span class="si">}</span><span class="s2"> "</span>
+                    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">gradients</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="si">:</span><span class="s2">8.3f</span><span class="si">}</span><span class="s2">"</span>
                 <span class="p">)</span>
 
-        <span class="k">if</span> <span class="s2">&quot;gradients,units&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-            <span class="n">funits</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;gradients,units&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s2">"gradients,units"</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="n">funits</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">"gradients,units"</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">funits</span> <span class="o">=</span> <span class="s2">&quot;kJ/mol/Å&quot;</span>
+            <span class="n">funits</span> <span class="o">=</span> <span class="s2">"kJ/mol/Å"</span>
 
         <span class="c1"># Get the measures of convergence</span>
-        <span class="k">if</span> <span class="s2">&quot;max_force&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s2">"max_force"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">:</span>
             <span class="n">max_force</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">gradients</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s2">&quot;max_force&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">max_force</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;maximum_gradient&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Q_</span><span class="p">(</span><span class="n">max_force</span><span class="p">,</span> <span class="n">funits</span><span class="p">)</span><span class="o">.</span><span class="n">m_as</span><span class="p">(</span><span class="s2">&quot;kJ/mol/Å&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s2">"max_force"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">max_force</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">"maximum_gradient"</span><span class="p">]</span> <span class="o">=</span> <span class="n">Q_</span><span class="p">(</span><span class="n">max_force</span><span class="p">,</span> <span class="n">funits</span><span class="p">)</span><span class="o">.</span><span class="n">m_as</span><span class="p">(</span><span class="s2">"kJ/mol/Å"</span><span class="p">)</span>
             <span class="n">rms_force</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">gradients</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s2">&quot;rms_force&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rms_force</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;rms_gradient&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Q_</span><span class="p">(</span><span class="n">rms_force</span><span class="p">,</span> <span class="n">funits</span><span class="p">)</span><span class="o">.</span><span class="n">m_as</span><span class="p">(</span><span class="s2">&quot;kJ/mol/Å&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s2">"rms_force"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rms_force</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">"rms_gradient"</span><span class="p">]</span> <span class="o">=</span> <span class="n">Q_</span><span class="p">(</span><span class="n">rms_force</span><span class="p">,</span> <span class="n">funits</span><span class="p">)</span><span class="o">.</span><span class="n">m_as</span><span class="p">(</span><span class="s2">"kJ/mol/Å"</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_step</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="n">step</span> <span class="o">=</span> <span class="n">positions</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last_coordinates</span>
                 <span class="n">max_step</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">max_step</span> <span class="o">=</span> <span class="mf">0.0</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s2">&quot;max_step&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">max_step</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;maximum_step&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">max_step</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s2">"max_step"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">max_step</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">"maximum_step"</span><span class="p">]</span> <span class="o">=</span> <span class="n">max_step</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_last_coordinates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">positions</span><span class="p">)</span>
 
         <span class="c1"># Units!</span>
-        <span class="n">gradients</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">gradients</span><span class="p">)</span> <span class="o">*</span> <span class="n">Q_</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">funits</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;eV/Å&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span>
+        <span class="n">gradients</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">gradients</span><span class="p">)</span> <span class="o">*</span> <span class="n">Q_</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">funits</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">"eV/Å"</span><span class="p">)</span><span class="o">.</span><span class="n">magnitude</span>
 
-        <span class="n">calculator</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;energy&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">energy</span>
-        <span class="n">calculator</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;forces&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">gradients</span>
+        <span class="n">calculator</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s2">"energy"</span><span class="p">]</span> <span class="o">=</span> <span class="n">energy</span>
+        <span class="n">calculator</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s2">"forces"</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">gradients</span>
 
         <span class="c1"># Log the results</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">headers</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="s2">&quot;Step&quot;</span><span class="p">,</span>
-                <span class="sa">f</span><span class="s2">&quot;E (</span><span class="si">{</span><span class="n">units</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
-                <span class="sa">f</span><span class="s2">&quot;Fmax (</span><span class="si">{</span><span class="n">funits</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
-                <span class="sa">f</span><span class="s2">&quot;Frms (</span><span class="si">{</span><span class="n">funits</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;max step (Å)&quot;</span><span class="p">,</span>
+                <span class="s2">"Step"</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s2">"E (</span><span class="si">{</span><span class="n">units</span><span class="si">}</span><span class="s2">)"</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s2">"Fmax (</span><span class="si">{</span><span class="n">funits</span><span class="si">}</span><span class="s2">)"</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s2">"Frms (</span><span class="si">{</span><span class="n">funits</span><span class="si">}</span><span class="s2">)"</span><span class="p">,</span>
+                <span class="s2">"max step (Å)"</span><span class="p">,</span>
             <span class="p">]</span>
             <span class="n">tmp</span> <span class="o">=</span> <span class="n">tabulate</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">,</span>
                 <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
-                <span class="n">tablefmt</span><span class="o">=</span><span class="s2">&quot;rounded_outline&quot;</span><span class="p">,</span>
+                <span class="n">tablefmt</span><span class="o">=</span><span class="s2">"rounded_outline"</span><span class="p">,</span>
                 <span class="n">disable_numparse</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                <span class="n">floatfmt</span><span class="o">=</span><span class="s2">&quot;.3f&quot;</span><span class="p">,</span>
+                <span class="n">floatfmt</span><span class="o">=</span><span class="s2">".3f"</span><span class="p">,</span>
             <span class="p">)</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logfile</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fd</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logfile</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fd</span><span class="p">:</span>
                 <span class="n">fd</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
-                <span class="n">fd</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">fd</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
 
         <span class="c1"># and plot the results</span>
-        <span class="k">if</span> <span class="s2">&quot;step&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s2">"step"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">E_units</span><span class="o">=</span><span class="n">units</span><span class="p">,</span> <span class="n">F_units</span><span class="o">=</span><span class="n">funits</span><span class="p">)</span>
 
         <span class="c1"># Citation!</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ase_read_bibliography</span><span class="p">()</span>
-        <span class="k">if</span> <span class="s2">&quot;seamm_ase&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bibliography</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s2">"seamm_ase"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bibliography</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">references</span><span class="o">.</span><span class="n">cite</span><span class="p">(</span>
-                <span class="n">raw</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_bibliography</span><span class="p">[</span><span class="s2">&quot;seamm_ase&quot;</span><span class="p">],</span>
-                <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;seamm_ase&quot;</span><span class="p">,</span>
-                <span class="n">module</span><span class="o">=</span><span class="s2">&quot;seamm_ase&quot;</span><span class="p">,</span>
+                <span class="n">raw</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_bibliography</span><span class="p">[</span><span class="s2">"seamm_ase"</span><span class="p">],</span>
+                <span class="n">alias</span><span class="o">=</span><span class="s2">"seamm_ase"</span><span class="p">,</span>
+                <span class="n">module</span><span class="o">=</span><span class="s2">"seamm_ase"</span><span class="p">,</span>
                 <span class="n">level</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">citation_level</span><span class="p">,</span>
-                <span class="n">note</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;The principle citation for the ASE connector for SEAMM.&quot;</span><span class="p">),</span>
+                <span class="n">note</span><span class="o">=</span><span class="p">(</span><span class="s2">"The principle citation for the ASE connector for SEAMM."</span><span class="p">),</span>
             <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ASE_mixin.ase_read_bibliography">
 <a class="viewcode-back" href="../../api/seamm_ase.html#seamm_ase.seamm_ase.ASE_mixin.ase_read_bibliography">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">ase_read_bibliography</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Read the bibliography from a file and add to the local bibliography&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Reading the seamm_ase bibliography&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s2">&quot;seamm-ase&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bibliography</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Read the bibliography from a file and add to the local bibliography"""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Reading the seamm_ase bibliography"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s2">"seamm-ase"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bibliography</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">data</span> <span class="o">=</span> <span class="n">files</span><span class="p">(</span><span class="s2">&quot;seamm_ase.data&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="s2">&quot;references.bib&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">files</span><span class="p">(</span><span class="s2">"seamm_ase.data"</span><span class="p">)</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="s2">"references.bib"</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span>
                 <span class="n">tmp</span> <span class="o">=</span> <span class="n">bibtexparser</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">entries_dict</span>
                 <span class="n">writer</span> <span class="o">=</span> <span class="n">bibtexparser</span><span class="o">.</span><span class="n">bwriter</span><span class="o">.</span><span class="n">BibTexWriter</span><span class="p">()</span>
                 <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">tmp</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;      </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"      </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_bibliography</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">writer</span><span class="o">.</span><span class="n">_entry_to_bibtex</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Exception in reading seamm_ase bibliography: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Exception in reading seamm_ase bibliography: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
                 <span class="k">pass</span>
-        <span class="k">if</span> <span class="s2">&quot;seamm_ase&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bibliography</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s2">"seamm_ase"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bibliography</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">template</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">Template</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bibliography</span><span class="p">[</span><span class="s2">&quot;seamm_ase&quot;</span><span class="p">])</span>
+                <span class="n">template</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">Template</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bibliography</span><span class="p">[</span><span class="s2">"seamm_ase"</span><span class="p">])</span>
 
-                <span class="k">if</span> <span class="s2">&quot;untagged&quot;</span> <span class="ow">in</span> <span class="n">__version__</span> <span class="ow">or</span> <span class="s2">&quot;unknown&quot;</span> <span class="ow">in</span> <span class="n">__version__</span><span class="p">:</span>
+                <span class="k">if</span> <span class="s2">"untagged"</span> <span class="ow">in</span> <span class="n">__version__</span> <span class="ow">or</span> <span class="s2">"unknown"</span> <span class="ow">in</span> <span class="n">__version__</span><span class="p">:</span>
                     <span class="c1"># Development version</span>
                     <span class="n">year</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">year</span>
                     <span class="n">month</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">month</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">year</span><span class="p">,</span> <span class="n">month</span> <span class="o">=</span> <span class="n">__version__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+                    <span class="n">year</span><span class="p">,</span> <span class="n">month</span> <span class="o">=</span> <span class="n">__version__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"."</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">month</span> <span class="o">=</span> <span class="n">calendar</span><span class="o">.</span><span class="n">month_abbr</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">month</span><span class="p">)]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
                 <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
@@ -915,9 +943,9 @@
                     <span class="n">month</span><span class="o">=</span><span class="n">month</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="n">__version__</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">year</span><span class="p">)</span>
                 <span class="p">)</span>
 
-                <span class="bp">self</span><span class="o">.</span><span class="n">_bibliography</span><span class="p">[</span><span class="s2">&quot;seamm_ase&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">citation</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_bibliography</span><span class="p">[</span><span class="s2">"seamm_ase"</span><span class="p">]</span> <span class="o">=</span> <span class="n">citation</span>
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="n">printer</span><span class="o">.</span><span class="n">important</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Exception in citation </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">printer</span><span class="o">.</span><span class="n">important</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Exception in citation </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
                 <span class="n">printer</span><span class="o">.</span><span class="n">important</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span></div>
 
 
@@ -926,10 +954,10 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">run_ase_Hessian</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">step_size</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
-        <span class="n">on_error</span><span class="o">=</span><span class="s2">&quot;keep last subdirectory&quot;</span><span class="p">,</span>
-        <span class="n">on_success</span><span class="o">=</span><span class="s2">&quot;delete all subdirectories&quot;</span><span class="p">,</span>
+        <span class="n">on_error</span><span class="o">=</span><span class="s2">"keep last subdirectory"</span><span class="p">,</span>
+        <span class="n">on_success</span><span class="o">=</span><span class="s2">"delete all subdirectories"</span><span class="p">,</span>
     <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Run ASE to get the Hessian</span>
+<span class="w">        </span><span class="sd">"""Run ASE to get the Hessian</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -939,16 +967,16 @@
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        vibrations : ASE VibrationsData() object</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># Citation!</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ase_read_bibliography</span><span class="p">()</span>
-        <span class="k">if</span> <span class="s2">&quot;ASE&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bibliography</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s2">"ASE"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bibliography</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">references</span><span class="o">.</span><span class="n">cite</span><span class="p">(</span>
-                <span class="n">raw</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_bibliography</span><span class="p">[</span><span class="s2">&quot;ASE&quot;</span><span class="p">],</span>
-                <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;ASE&quot;</span><span class="p">,</span>
-                <span class="n">module</span><span class="o">=</span><span class="s2">&quot;seamm_ase&quot;</span><span class="p">,</span>
+                <span class="n">raw</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_bibliography</span><span class="p">[</span><span class="s2">"ASE"</span><span class="p">],</span>
+                <span class="n">alias</span><span class="o">=</span><span class="s2">"ASE"</span><span class="p">,</span>
+                <span class="n">module</span><span class="o">=</span><span class="s2">"seamm_ase"</span><span class="p">,</span>
                 <span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                <span class="n">note</span><span class="o">=</span><span class="s2">&quot;Main reference for ASE.&quot;</span><span class="p">,</span>
+                <span class="n">note</span><span class="o">=</span><span class="s2">"Main reference for ASE."</span><span class="p">,</span>
             <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_last_coordinates</span> <span class="o">=</span> <span class="kc">None</span>
@@ -964,7 +992,7 @@
         <span class="n">atoms</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ase_atoms</span><span class="p">(</span><span class="n">starting_configuration</span><span class="p">)</span>
 
         <span class="c1"># The ASE Vibrations object</span>
-        <span class="n">vibrations</span> <span class="o">=</span> <span class="n">Vibrations</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">wd</span> <span class="o">/</span> <span class="s2">&quot;finite-difference&quot;</span><span class="p">,</span> <span class="n">delta</span><span class="o">=</span><span class="n">step_size</span><span class="p">)</span>
+        <span class="n">vibrations</span> <span class="o">=</span> <span class="n">Vibrations</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">wd</span> <span class="o">/</span> <span class="s2">"finite-difference"</span><span class="p">,</span> <span class="n">delta</span><span class="o">=</span><span class="n">step_size</span><span class="p">)</span>
 
         <span class="c1"># Run the finite-difference calculation of the Hessian</span>
         <span class="n">caught_error</span> <span class="o">=</span> <span class="kc">False</span>
@@ -975,30 +1003,30 @@
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>  <span class="c1"># noqa: F841</span>
             <span class="n">exception</span> <span class="o">=</span> <span class="n">e</span>
             <span class="n">caught_error</span> <span class="o">=</span> <span class="kc">True</span>
-            <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exception</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="s2">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exception</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
             <span class="n">printer</span><span class="o">.</span><span class="n">important</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Exception in the finite-difference calculation!</span><span class="se">\n\n</span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="sa">f</span><span class="s2">"Exception in the finite-difference calculation!</span><span class="se">\n\n</span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s2">"</span>
             <span class="p">)</span>
 
         <span class="c1"># Clean up the subdirectories</span>
         <span class="k">if</span> <span class="n">caught_error</span><span class="p">:</span>
-            <span class="k">if</span> <span class="s2">&quot;delete all&quot;</span> <span class="ow">in</span> <span class="n">on_error</span><span class="p">:</span>
-                <span class="n">subdirectories</span> <span class="o">=</span> <span class="n">wd</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;step_*&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s2">"delete all"</span> <span class="ow">in</span> <span class="n">on_error</span><span class="p">:</span>
+                <span class="n">subdirectories</span> <span class="o">=</span> <span class="n">wd</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"step_*"</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">subdirectory</span> <span class="ow">in</span> <span class="n">subdirectories</span><span class="p">:</span>
                     <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">subdirectory</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="s2">&quot;keep last&quot;</span> <span class="ow">in</span> <span class="n">on_error</span><span class="p">:</span>
-                <span class="n">subdirectories</span> <span class="o">=</span> <span class="n">wd</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;step_*&quot;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="s2">"keep last"</span> <span class="ow">in</span> <span class="n">on_error</span><span class="p">:</span>
+                <span class="n">subdirectories</span> <span class="o">=</span> <span class="n">wd</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"step_*"</span><span class="p">)</span>
                 <span class="n">subdirectories</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">subdirectories</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">subdirectory</span> <span class="ow">in</span> <span class="n">subdirectories</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
                     <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">subdirectory</span><span class="p">)</span>
             <span class="k">raise</span> <span class="n">exception</span> <span class="kn">from</span><span class="w"> </span><span class="kc">None</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">if</span> <span class="s2">&quot;delete all&quot;</span> <span class="ow">in</span> <span class="n">on_success</span><span class="p">:</span>
-                <span class="n">subdirectories</span> <span class="o">=</span> <span class="n">wd</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;step_*&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s2">"delete all"</span> <span class="ow">in</span> <span class="n">on_success</span><span class="p">:</span>
+                <span class="n">subdirectories</span> <span class="o">=</span> <span class="n">wd</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"step_*"</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">subdirectory</span> <span class="ow">in</span> <span class="n">subdirectories</span><span class="p">:</span>
                     <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">subdirectory</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="s2">&quot;keep last&quot;</span> <span class="ow">in</span> <span class="n">on_success</span><span class="p">:</span>
-                <span class="n">subdirectories</span> <span class="o">=</span> <span class="n">wd</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;step_*&quot;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="s2">"keep last"</span> <span class="ow">in</span> <span class="n">on_success</span><span class="p">:</span>
+                <span class="n">subdirectories</span> <span class="o">=</span> <span class="n">wd</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"step_*"</span><span class="p">)</span>
                 <span class="n">subdirectories</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">subdirectories</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">subdirectory</span> <span class="ow">in</span> <span class="n">subdirectories</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
                     <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">subdirectory</span><span class="p">)</span>
@@ -1009,7 +1037,7 @@
 <div class="viewcode-block" id="ASE_mixin.run_ase_optimizer">
 <a class="viewcode-back" href="../../api/seamm_ase.html#seamm_ase.seamm_ase.ASE_mixin.run_ase_optimizer">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">run_ase_optimizer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">PP</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Run a Structure step.</span>
+<span class="w">        </span><span class="sd">"""Run a Structure step.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1017,24 +1045,24 @@
 <span class="sd">            The current values of the parameters</span>
 <span class="sd">        PP : dict</span>
 <span class="sd">            The current values of the parameters, formatted for printing</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># Citation!</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ase_read_bibliography</span><span class="p">()</span>
-        <span class="k">if</span> <span class="s2">&quot;ASE&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bibliography</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s2">"ASE"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bibliography</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">references</span><span class="o">.</span><span class="n">cite</span><span class="p">(</span>
-                <span class="n">raw</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_bibliography</span><span class="p">[</span><span class="s2">&quot;ASE&quot;</span><span class="p">],</span>
-                <span class="n">alias</span><span class="o">=</span><span class="s2">&quot;ASE&quot;</span><span class="p">,</span>
-                <span class="n">module</span><span class="o">=</span><span class="s2">&quot;seamm_ase&quot;</span><span class="p">,</span>
+                <span class="n">raw</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_bibliography</span><span class="p">[</span><span class="s2">"ASE"</span><span class="p">],</span>
+                <span class="n">alias</span><span class="o">=</span><span class="s2">"ASE"</span><span class="p">,</span>
+                <span class="n">module</span><span class="o">=</span><span class="s2">"seamm_ase"</span><span class="p">,</span>
                 <span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                <span class="n">note</span><span class="o">=</span><span class="s2">&quot;Main reference for ASE.&quot;</span><span class="p">,</span>
+                <span class="n">note</span><span class="o">=</span><span class="s2">"Main reference for ASE."</span><span class="p">,</span>
             <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;step&quot;</span><span class="p">:</span> <span class="p">[],</span>
-            <span class="s2">&quot;energy&quot;</span><span class="p">:</span> <span class="p">[],</span>
-            <span class="s2">&quot;max_force&quot;</span><span class="p">:</span> <span class="p">[],</span>
-            <span class="s2">&quot;rms_force&quot;</span><span class="p">:</span> <span class="p">[],</span>
-            <span class="s2">&quot;max_step&quot;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"step"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"energy"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"max_force"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"rms_force"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"max_step"</span><span class="p">:</span> <span class="p">[],</span>
         <span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_last_coordinates</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_step</span> <span class="o">=</span> <span class="mi">0</span>
@@ -1052,52 +1080,52 @@
         <span class="n">wd</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="c1"># Setup the log file for the optimization</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_logfile</span> <span class="o">=</span> <span class="n">wd</span> <span class="o">/</span> <span class="s2">&quot;optimization.log&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logfile</span> <span class="o">=</span> <span class="n">wd</span> <span class="o">/</span> <span class="s2">"optimization.log"</span>
 
         <span class="n">symbols</span> <span class="o">=</span> <span class="n">starting_configuration</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">symbols</span>
         <span class="n">XYZ</span> <span class="o">=</span> <span class="n">starting_configuration</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">coordinates</span>
 
         <span class="n">calculator</span> <span class="o">=</span> <span class="n">SEAMM_Calculator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="n">atoms</span> <span class="o">=</span> <span class="n">ASE_Atoms</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">symbols</span><span class="p">),</span> <span class="n">positions</span><span class="o">=</span><span class="n">XYZ</span><span class="p">,</span> <span class="n">calculator</span><span class="o">=</span><span class="n">calculator</span><span class="p">)</span>
+        <span class="n">atoms</span> <span class="o">=</span> <span class="n">ASE_Atoms</span><span class="p">(</span><span class="s2">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">symbols</span><span class="p">),</span> <span class="n">positions</span><span class="o">=</span><span class="n">XYZ</span><span class="p">,</span> <span class="n">calculator</span><span class="o">=</span><span class="n">calculator</span><span class="p">)</span>
 
         <span class="c1"># The default maximum number of steps may vary depending on the optimizer</span>
-        <span class="n">max_steps</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="s2">&quot;max steps&quot;</span><span class="p">]</span>
+        <span class="n">max_steps</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="s2">"max steps"</span><span class="p">]</span>
 
         <span class="c1"># Optimize the structure</span>
-        <span class="n">optimizer</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="s2">&quot;optimizer&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">optimizer</span> <span class="o">==</span> <span class="s2">&quot;bfgs&quot;</span><span class="p">:</span>
-            <span class="n">optimizer</span> <span class="o">=</span> <span class="n">ASE_Optimize</span><span class="o">.</span><span class="n">BFGS</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">restart</span><span class="o">=</span><span class="n">wd</span> <span class="o">/</span> <span class="s2">&quot;bfgs.json&quot;</span><span class="p">,</span> <span class="n">logfile</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">optimizer</span> <span class="o">==</span> <span class="s2">&quot;lbfgs&quot;</span><span class="p">:</span>
+        <span class="n">optimizer</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="s2">"optimizer"</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"/"</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">optimizer</span> <span class="o">==</span> <span class="s2">"bfgs"</span><span class="p">:</span>
+            <span class="n">optimizer</span> <span class="o">=</span> <span class="n">ASE_Optimize</span><span class="o">.</span><span class="n">BFGS</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">restart</span><span class="o">=</span><span class="n">wd</span> <span class="o">/</span> <span class="s2">"bfgs.json"</span><span class="p">,</span> <span class="n">logfile</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">optimizer</span> <span class="o">==</span> <span class="s2">"lbfgs"</span><span class="p">:</span>
             <span class="n">optimizer</span> <span class="o">=</span> <span class="n">ASE_Optimize</span><span class="o">.</span><span class="n">LBFGS</span><span class="p">(</span>
-                <span class="n">atoms</span><span class="p">,</span> <span class="n">restart</span><span class="o">=</span><span class="n">wd</span> <span class="o">/</span> <span class="s2">&quot;lbfgs.json&quot;</span><span class="p">,</span> <span class="n">logfile</span><span class="o">=</span><span class="kc">None</span>
+                <span class="n">atoms</span><span class="p">,</span> <span class="n">restart</span><span class="o">=</span><span class="n">wd</span> <span class="o">/</span> <span class="s2">"lbfgs.json"</span><span class="p">,</span> <span class="n">logfile</span><span class="o">=</span><span class="kc">None</span>
             <span class="p">)</span>
-        <span class="k">elif</span> <span class="n">optimizer</span> <span class="o">==</span> <span class="s2">&quot;fire&quot;</span><span class="p">:</span>
-            <span class="n">optimizer</span> <span class="o">=</span> <span class="n">ASE_Optimize</span><span class="o">.</span><span class="n">FIRE</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">restart</span><span class="o">=</span><span class="n">wd</span> <span class="o">/</span> <span class="s2">&quot;fire.json&quot;</span><span class="p">,</span> <span class="n">logfile</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">optimizer</span> <span class="o">==</span> <span class="s2">&quot;gpmin&quot;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">optimizer</span> <span class="o">==</span> <span class="s2">"fire"</span><span class="p">:</span>
+            <span class="n">optimizer</span> <span class="o">=</span> <span class="n">ASE_Optimize</span><span class="o">.</span><span class="n">FIRE</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">restart</span><span class="o">=</span><span class="n">wd</span> <span class="o">/</span> <span class="s2">"fire.json"</span><span class="p">,</span> <span class="n">logfile</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">optimizer</span> <span class="o">==</span> <span class="s2">"gpmin"</span><span class="p">:</span>
             <span class="n">optimizer</span> <span class="o">=</span> <span class="n">ASE_Optimize</span><span class="o">.</span><span class="n">GPMin</span><span class="p">(</span>
-                <span class="n">atoms</span><span class="p">,</span> <span class="n">restart</span><span class="o">=</span><span class="n">wd</span> <span class="o">/</span> <span class="s2">&quot;gpmin.json&quot;</span><span class="p">,</span> <span class="n">logfile</span><span class="o">=</span><span class="kc">None</span>
+                <span class="n">atoms</span><span class="p">,</span> <span class="n">restart</span><span class="o">=</span><span class="n">wd</span> <span class="o">/</span> <span class="s2">"gpmin.json"</span><span class="p">,</span> <span class="n">logfile</span><span class="o">=</span><span class="kc">None</span>
             <span class="p">)</span>
-        <span class="k">elif</span> <span class="n">optimizer</span> <span class="o">==</span> <span class="s2">&quot;mdmin&quot;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">optimizer</span> <span class="o">==</span> <span class="s2">"mdmin"</span><span class="p">:</span>
             <span class="n">optimizer</span> <span class="o">=</span> <span class="n">ASE_Optimize</span><span class="o">.</span><span class="n">MDMin</span><span class="p">(</span>
-                <span class="n">atoms</span><span class="p">,</span> <span class="n">restart</span><span class="o">=</span><span class="n">wd</span> <span class="o">/</span> <span class="s2">&quot;mdmin.json&quot;</span><span class="p">,</span> <span class="n">logfile</span><span class="o">=</span><span class="kc">None</span>
+                <span class="n">atoms</span><span class="p">,</span> <span class="n">restart</span><span class="o">=</span><span class="n">wd</span> <span class="o">/</span> <span class="s2">"mdmin.json"</span><span class="p">,</span> <span class="n">logfile</span><span class="o">=</span><span class="kc">None</span>
             <span class="p">)</span>
-        <span class="k">elif</span> <span class="n">optimizer</span> <span class="o">==</span> <span class="s2">&quot;bfgslinesearch&quot;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">optimizer</span> <span class="o">==</span> <span class="s2">"bfgslinesearch"</span><span class="p">:</span>
             <span class="n">optimizer</span> <span class="o">=</span> <span class="n">ASE_Optimize</span><span class="o">.</span><span class="n">BFGSLineSearch</span><span class="p">(</span>
-                <span class="n">atoms</span><span class="p">,</span> <span class="n">restart</span><span class="o">=</span><span class="n">wd</span> <span class="o">/</span> <span class="s2">&quot;bfgsline.json&quot;</span><span class="p">,</span> <span class="n">logfile</span><span class="o">=</span><span class="kc">None</span>
+                <span class="n">atoms</span><span class="p">,</span> <span class="n">restart</span><span class="o">=</span><span class="n">wd</span> <span class="o">/</span> <span class="s2">"bfgsline.json"</span><span class="p">,</span> <span class="n">logfile</span><span class="o">=</span><span class="kc">None</span>
             <span class="p">)</span>
-        <span class="k">elif</span> <span class="n">optimizer</span> <span class="o">==</span> <span class="s2">&quot;lbfgslinesearch&quot;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">optimizer</span> <span class="o">==</span> <span class="s2">"lbfgslinesearch"</span><span class="p">:</span>
             <span class="n">optimizer</span> <span class="o">=</span> <span class="n">ASE_Optimize</span><span class="o">.</span><span class="n">LBFGSLineSearch</span><span class="p">(</span>
-                <span class="n">atoms</span><span class="p">,</span> <span class="n">restart</span><span class="o">=</span><span class="n">wd</span> <span class="o">/</span> <span class="s2">&quot;lbfgsline.json&quot;</span><span class="p">,</span> <span class="n">logfile</span><span class="o">=</span><span class="kc">None</span>
+                <span class="n">atoms</span><span class="p">,</span> <span class="n">restart</span><span class="o">=</span><span class="n">wd</span> <span class="o">/</span> <span class="s2">"lbfgsline.json"</span><span class="p">,</span> <span class="n">logfile</span><span class="o">=</span><span class="kc">None</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Unknown optimizer &#39;</span><span class="si">{</span><span class="n">optimizer</span><span class="si">}</span><span class="s2">&#39; (</span><span class="si">{</span><span class="n">P</span><span class="p">[</span><span class="s1">&#39;optimizer&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">) in Structure&quot;</span>
+                <span class="sa">f</span><span class="s2">"Unknown optimizer '</span><span class="si">{</span><span class="n">optimizer</span><span class="si">}</span><span class="s2">' (</span><span class="si">{</span><span class="n">P</span><span class="p">[</span><span class="s1">'optimizer'</span><span class="p">]</span><span class="si">}</span><span class="s2">) in Structure"</span>
             <span class="p">)</span>
 
-        <span class="n">convergence</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="s2">&quot;Maximum atomic gradient criterion&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">m_as</span><span class="p">(</span><span class="s2">&quot;eV/Å&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s2">&quot;natoms&quot;</span> <span class="ow">in</span> <span class="n">max_steps</span><span class="p">:</span>
+        <span class="n">convergence</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="s2">"Maximum atomic gradient criterion"</span><span class="p">]</span><span class="o">.</span><span class="n">m_as</span><span class="p">(</span><span class="s2">"eV/Å"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s2">"natoms"</span> <span class="ow">in</span> <span class="n">max_steps</span><span class="p">:</span>
             <span class="n">tmp</span> <span class="o">=</span> <span class="n">max_steps</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
-            <span class="k">if</span> <span class="s2">&quot;natoms&quot;</span> <span class="ow">in</span> <span class="n">tmp</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="s2">"natoms"</span> <span class="ow">in</span> <span class="n">tmp</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
                 <span class="n">max_steps</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">tmp</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">max_steps</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">tmp</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
@@ -1107,36 +1135,36 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="n">converged</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">fmax</span><span class="o">=</span><span class="n">convergence</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="n">max_steps</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exception</span><span class="p">:</span>  <span class="c1"># noqa: F841</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Exception: </span><span class="si">{</span><span class="n">exception</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Exception: </span><span class="si">{</span><span class="n">exception</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
             <span class="n">converged</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">finally</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">&quot;converged&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">converged</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_results</span><span class="p">[</span><span class="s2">"converged"</span><span class="p">]</span> <span class="o">=</span> <span class="n">converged</span>
 
         <span class="c1"># Clean up the subdirectories</span>
         <span class="k">if</span> <span class="n">exception</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">converged</span><span class="p">:</span>
-            <span class="n">keep</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="s2">&quot;on error&quot;</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">keep</span> <span class="o">==</span> <span class="s2">&quot;delete all subdirectories&quot;</span><span class="p">:</span>
-                <span class="n">subdirectories</span> <span class="o">=</span> <span class="n">wd</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;step_*&quot;</span><span class="p">)</span>
+            <span class="n">keep</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="s2">"on error"</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">keep</span> <span class="o">==</span> <span class="s2">"delete all subdirectories"</span><span class="p">:</span>
+                <span class="n">subdirectories</span> <span class="o">=</span> <span class="n">wd</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"step_*"</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">subdirectory</span> <span class="ow">in</span> <span class="n">subdirectories</span><span class="p">:</span>
                     <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">subdirectory</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">keep</span> <span class="o">==</span> <span class="s2">&quot;keep last subdirectory&quot;</span><span class="p">:</span>
-                <span class="n">subdirectories</span> <span class="o">=</span> <span class="n">wd</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;step_*&quot;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">keep</span> <span class="o">==</span> <span class="s2">"keep last subdirectory"</span><span class="p">:</span>
+                <span class="n">subdirectories</span> <span class="o">=</span> <span class="n">wd</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"step_*"</span><span class="p">)</span>
                 <span class="n">subdirectories</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">subdirectories</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">subdirectory</span> <span class="ow">in</span> <span class="n">subdirectories</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
                     <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">subdirectory</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">converged</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Optimization did not converge in </span><span class="si">{</span><span class="n">max_steps</span><span class="si">}</span><span class="s2"> steps&quot;</span>
+                    <span class="sa">f</span><span class="s2">"Optimization did not converge in </span><span class="si">{</span><span class="n">max_steps</span><span class="si">}</span><span class="s2"> steps"</span>
                 <span class="p">)</span>
             <span class="k">raise</span> <span class="n">exception</span> <span class="kn">from</span><span class="w"> </span><span class="kc">None</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">keep</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="s2">&quot;on success&quot;</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">keep</span> <span class="o">==</span> <span class="s2">&quot;delete all subdirectories&quot;</span><span class="p">:</span>
-                <span class="n">subdirectories</span> <span class="o">=</span> <span class="n">wd</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;step_*&quot;</span><span class="p">)</span>
+            <span class="n">keep</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="s2">"on success"</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">keep</span> <span class="o">==</span> <span class="s2">"delete all subdirectories"</span><span class="p">:</span>
+                <span class="n">subdirectories</span> <span class="o">=</span> <span class="n">wd</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"step_*"</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">subdirectory</span> <span class="ow">in</span> <span class="n">subdirectories</span><span class="p">:</span>
                     <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">subdirectory</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">keep</span> <span class="o">==</span> <span class="s2">&quot;keep last subdirectory&quot;</span><span class="p">:</span>
-                <span class="n">subdirectories</span> <span class="o">=</span> <span class="n">wd</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;step_*&quot;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">keep</span> <span class="o">==</span> <span class="s2">"keep last subdirectory"</span><span class="p">:</span>
+                <span class="n">subdirectories</span> <span class="o">=</span> <span class="n">wd</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"step_*"</span><span class="p">)</span>
                 <span class="n">subdirectories</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">subdirectories</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">subdirectory</span> <span class="ow">in</span> <span class="n">subdirectories</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
                     <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">subdirectory</span><span class="p">)</span></div>
@@ -1171,8 +1199,8 @@
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -1184,7 +1212,7 @@
         <div class="footer-item">
 <p class="theme-version">
   <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.23.0.
 </p></div>
       
     </div>
