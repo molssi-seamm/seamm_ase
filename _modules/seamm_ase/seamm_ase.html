@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>seamm_ase.seamm_ase &#8212; SEAMM-ASE Connector 2026.10.14 documentation</title>
+    <title>seamm_ase.seamm_ase &#8212; SEAMM-ASE Connector 2026.10.14.1 documentation</title>
   
   
   
@@ -39,7 +39,7 @@
   <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=18bd87630a240e9c25be" />
 <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=18bd87630a240e9c25be" />
 
-    <script src="../../_static/documentation_options.js?v=c92e1e03"></script>
+    <script src="../../_static/documentation_options.js?v=f0c00ab5"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -52,7 +52,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="color-scheme" content="light dark"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="2026.10.14" />
+  <meta name="docsearch:version" content="2026.10.14.1" />
   
     
     <script src="../../_static/searchtools.js"></script>
@@ -1082,11 +1082,8 @@
         <span class="c1"># Setup the log file for the optimization</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_logfile</span> <span class="o">=</span> <span class="n">wd</span> <span class="o">/</span> <span class="s2">"optimization.log"</span>
 
-        <span class="n">symbols</span> <span class="o">=</span> <span class="n">starting_configuration</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">symbols</span>
-        <span class="n">XYZ</span> <span class="o">=</span> <span class="n">starting_configuration</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">coordinates</span>
-
-        <span class="n">calculator</span> <span class="o">=</span> <span class="n">SEAMM_Calculator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="n">atoms</span> <span class="o">=</span> <span class="n">ASE_Atoms</span><span class="p">(</span><span class="s2">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">symbols</span><span class="p">),</span> <span class="n">positions</span><span class="o">=</span><span class="n">XYZ</span><span class="p">,</span> <span class="n">calculator</span><span class="o">=</span><span class="n">calculator</span><span class="p">)</span>
+        <span class="c1"># Cartesian positions and, for a periodic system, the cell (see ase_atoms)</span>
+        <span class="n">atoms</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ase_atoms</span><span class="p">(</span><span class="n">starting_configuration</span><span class="p">)</span>
 
         <span class="c1"># The default maximum number of steps may vary depending on the optimizer</span>
         <span class="n">max_steps</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="s2">"max steps"</span><span class="p">]</span>
