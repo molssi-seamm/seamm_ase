@@ -603,11 +603,8 @@ class ASE_mixin:
         # Setup the log file for the optimization
         self._logfile = wd / "optimization.log"
 
-        symbols = starting_configuration.atoms.symbols
-        XYZ = starting_configuration.atoms.coordinates
-
-        calculator = SEAMM_Calculator(self)
-        atoms = ASE_Atoms("".join(symbols), positions=XYZ, calculator=calculator)
+        # Cartesian positions and, for a periodic system, the cell (see ase_atoms)
+        atoms = self.ase_atoms(starting_configuration)
 
         # The default maximum number of steps may vary depending on the optimizer
         max_steps = P["max steps"]

@@ -107,3 +107,16 @@ def test_with_a_molsystem_configuration():
         assert np.allclose(atoms.positions[1], [6.0, 4.5, 9.0])
     finally:
         db.close()
+
+
+def test_every_path_builds_atoms_through_ase_atoms():
+    """The optimizer and Hessian paths must not build ASE Atoms on their own."""
+    import inspect
+
+    from seamm_ase import seamm_ase as module
+
+    source = inspect.getsource(module.ASE_mixin)
+    body = source.split("def ase_atoms", 1)[1].split("\n    def ", 1)[1]
+    assert "ASE_Atoms(" not in body
+    for name in ("run_ase_optimizer", "run_ase_Hessian"):
+        assert "self.ase_atoms(" in inspect.getsource(getattr(module.ASE_mixin, name))

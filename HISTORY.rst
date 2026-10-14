@@ -1,6 +1,12 @@
 =======
 History
 =======
+2026.10.14.1 -- Bugfix: ASE optimizations of periodic structures had the same error
+    * The ASE optimizers (used, for example, by the Structure step) built their own ASE
+      Atoms with the error fixed in 2026.10.14 for the Hessian: a periodic structure
+      lost its cell and its fractional coordinates were read as Cartesian. They now use
+      the corrected conversion. Molecular structures are unchanged.
+
 2026.10.14 -- Bugfix: periodic structures were passed to ASE without their cell
     * The ASE Atoms made from a periodic configuration had no cell or periodic boundary
       conditions, and their positions were the fractional coordinates read as
