@@ -652,7 +652,11 @@ class ASE_mixin:
         exception = None
         try:
             converged = optimizer.run(fmax=convergence, steps=max_steps)
-        except Exception as exception:  # noqa: F841
+        except Exception as e:
+            # Keep it: 'except ... as exception' would delete the name at the end
+            # of the block, and the check below then raised UnboundLocalError,
+            # hiding the real error
+            exception = e
             print(f"Exception: {exception}")
             converged = False
         finally:
@@ -670,11 +674,22 @@ class ASE_mixin:
                 subdirectories = sorted(subdirectories)
                 for subdirectory in subdirectories[:-1]:
                     shutil.rmtree(subdirectory)
-            if not converged:
+            if exception is not None:
+                raise exception from None
+            if str(P.get("continue if not converged", "no")).lower() not in (
+                "yes",
+                "true",
+            ):
                 raise RuntimeError(
                     f"Optimization did not converge in {max_steps} steps"
                 )
-            raise exception from None
+            printer.normal(
+                __(
+                    f"The optimization did not converge in {max_steps} steps; "
+                    "continuing, as 'continue if not converged' asks.",
+                    indent=self.indent + 4 * " ",
+                )
+            )
         else:
             keep = P["on success"]
             if keep == "delete all subdirectories":
