@@ -1,6 +1,14 @@
 =======
 History
 =======
+2026.11.24 -- Bugfix: errors in ASE optimizations were hidden; 'continue if not converged' ignored
+    * When an ASE optimizer stopped with an error, it was reported as an
+      UnboundLocalError, or as not converging, rather than as itself. It is now raised as
+      it is.
+    * 'Continue if not converged' now works for the ASE optimizers as it does for
+      geomeTRIC: an optimization that reaches the maximum number of steps is noted and
+      the flowchart carries on with the last structure.
+
 2026.10.14.1 -- Bugfix: ASE optimizations of periodic structures had the same error
     * The ASE optimizers (used, for example, by the Structure step) built their own ASE
       Atoms with the error fixed in 2026.10.14 for the Hessian: a periodic structure
